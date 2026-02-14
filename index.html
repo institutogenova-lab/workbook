@@ -3,161 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neurociência da Mente - Joyce Genova</title>
+    <title>Jornada 21 Dias - Joyce Genova</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
-        :root { --navy: #0f172a; --gold: #b8924a; --white: #ffffff; --bg: #f8fafc; --text: #334155; --accent: #1e293b; }
-        * { box-sizing: border-box; scroll-behavior: smooth; }
+        :root { --navy: #0f172a; --gold: #b8924a; --white: #ffffff; --bg: #f8fafc; --text: #334155; }
+        * { box-sizing: border-box; }
         body { font-family: 'Montserrat', sans-serif; background: var(--bg); margin: 0; display: flex; justify-content: center; height: 100vh; overflow: hidden; }
         
-        #workbook { width: 100%; max-width: 1000px; height: 100vh; background: var(--white); display: flex; flex-direction: column; box-shadow: 0 0 60px rgba(0,0,0,0.15); border-right: 1px solid #e2e8f0; border-left: 1px solid #e2e8f0; }
-        .progress-bar { height: 10px; background: #eee; width: 100%; border-bottom: 1px solid #ddd; }
-        #fill { height: 100%; background: linear-gradient(90deg, var(--navy), var(--gold)); width: 1.25%; transition: 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+        #workbook { width: 100%; max-width: 850px; height: 100vh; background: var(--white); display: flex; flex-direction: column; box-shadow: 0 0 40px rgba(0,0,0,0.1); }
+        .progress-bar { height: 10px; background: #eee; width: 100%; }
+        #fill { height: 100%; background: var(--gold); width: 4.76%; transition: 0.6s ease; }
 
-        .viewport { flex-grow: 1; overflow-y: auto; padding: 50px 80px; }
-        .page { display: none; animation: fadeIn 0.6s ease-out; }
+        .viewport { flex-grow: 1; overflow-y: auto; padding: 40px 50px; }
+        .page { display: none; animation: fadeIn 0.5s ease; }
         .page.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        h1 { font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--navy); margin-bottom: 10px; line-height: 1.1; }
-        h2 { font-family: 'Playfair Display', serif; font-size: 2.2rem; color: var(--accent); border-bottom: 3px solid var(--gold); display: inline-block; margin: 25px 0; }
-        h3 { color: var(--gold); text-transform: uppercase; letter-spacing: 3px; font-size: 0.9rem; font-weight: 700; margin-bottom: 5px; }
-        p { line-height: 1.9; font-size: 1.15rem; color: var(--text); margin-bottom: 20px; text-align: justify; }
+        h1, h2 { font-family: 'Playfair Display', serif; color: var(--navy); }
+        h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        h2 { border-left: 5px solid var(--gold); padding-left: 15px; margin: 25px 0; }
+        p { line-height: 1.7; font-size: 1.1rem; color: var(--text); }
 
-        /* Gráficos e Boxes Técnicos */
-        .chart-box { background: var(--navy); color: white; padding: 40px; border-radius: 20px; margin: 30px 0; position: relative; overflow: hidden; }
-        .brain-part { border: 1px solid rgba(184, 146, 74, 0.5); margin: 15px 0; padding: 20px; border-radius: 12px; background: rgba(255,255,255,0.05); }
-        .brain-part strong { color: var(--gold); font-size: 1.2rem; display: block; margin-bottom: 5px; }
+        .challenge-box { background: #fffcf0; border: 2px solid #f3e8c1; padding: 25px; border-radius: 15px; margin-top: 30px; }
+        textarea { width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 10px; margin: 15px 0; font-family: inherit; font-size: 1rem; resize: none; }
+        
+        /* Botões */
+        .controls { padding: 20px 50px; background: #fff; border-top: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+        .btn { padding: 12px 25px; border-radius: 50px; border: none; cursor: pointer; font-weight: 700; transition: 0.3s; text-transform: uppercase; }
+        .btn-next { background: var(--navy); color: white; }
+        .btn-prev { background: #cbd5e1; color: var(--navy); }
+        .btn-finish { background: var(--gold); color: white; width: 100%; margin-top: 10px; }
+        .btn-finish:hover { transform: scale(1.02); background: #a6813d; }
 
-        .quote-box { border-left: 8px solid var(--gold); background: #fdfaf3; padding: 30px; margin: 30px 0; font-style: italic; font-size: 1.2rem; border-radius: 0 15px 15px 0; }
-        .scientific-note { background: #eff6ff; border: 1px solid #dbeafe; padding: 20px; border-radius: 12px; display: flex; align-items: flex-start; gap: 15px; margin: 20px 0; }
-        .scientific-note::before { content: "🧬"; font-size: 1.5rem; }
-
-        .exercise-card { background: #fff; border: 2px solid #f1f5f9; padding: 35px; border-radius: 20px; margin-top: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        textarea { width: 100%; padding: 20px; border: 1px solid #cbd5e1; border-radius: 12px; margin-top: 15px; font-family: inherit; font-size: 1.05rem; transition: 0.3s; background: #fcfcfc; }
-        textarea:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 4px rgba(184, 146, 74, 0.1); }
-
-        /* Controles */
-        .controls { padding: 30px 80px; background: #fff; border-top: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
-        .btn { padding: 15px 40px; border-radius: 50px; border: none; cursor: pointer; font-weight: 700; transition: 0.4s; text-transform: uppercase; letter-spacing: 1px; }
-        .btn-next { background: var(--navy); color: white; box-shadow: 0 10px 20px rgba(15, 23, 42, 0.2); }
-        .btn-next:hover { background: var(--gold); transform: translateY(-2px); }
-        .btn-prev { background: #f1f5f9; color: var(--navy); }
-        .btn-prev:hover { background: #e2e8f0; }
-        .page-counter { font-weight: 800; color: var(--navy); font-size: 1.2rem; }
-
-        @media (max-width: 768px) { .viewport { padding: 30px; } .controls { padding: 20px; } h1 { font-size: 2.2rem; } }
+        /* Mensagem de Parabéns */
+        #congrats-popup { 
+            display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background: var(--navy); color: white; padding: 30px 50px; border-radius: 20px;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.5); text-align: center; z-index: 1000;
+            border: 3px solid var(--gold); animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes pop { from { opacity: 0; transform: translate(-50%, -60%) scale(0.8); } to { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
     </style>
 </head>
 <body>
+
+<div id="congrats-popup">
+    <h2 style="color: var(--gold); margin: 0;">🎉 Congratulations!</h2>
+    <p style="color: white;">Você terminou um desafio!</p>
+    <button class="btn btn-next" onclick="closePopup()">Continuar</button>
+</div>
 
 <div id="workbook">
     <div class="progress-bar"><div id="fill"></div></div>
     
     <div class="viewport" id="view">
-        <div class="page active" id="p1">
-            <h3>Neurociência & Comportamento</h3>
-            <h1>O Código da Mente</h1>
-            <p>Seja bem-vinda ao mais profundo mergulho na biologia da sua personalidade. Este workbook de 80 módulos foi desenhado para quem não aceita mais ser refém de impulsos invisíveis.</p>
-            <div class="quote-box">
-                "Não somos o que pensamos ser, somos o resultado de circuitos neurais que podem ser reprogramados."
-            </div>
-            <p><strong> Joyce Genova - Mentora de Inteligência Emocional</strong></p>
-        </div>
-
-        <div class="page" id="p2">
-            <h2>A Anatomia da Decisão</h2>
-            <p>Para mudar, você precisa entender quem manda. O conflito humano nasce da disputa entre estas três centrais:</p>
-            <div class="chart-box">
-                <div class="brain-part">
-                    <strong>1. Córtex Pré-Frontal (O Estrategista)</strong>
-                    Sede da lógica, moral e planejamento. Gasta muita energia e cansa rápido.
-                </div>
-                <div class="brain-part">
-                    <strong>2. Sistema Límbico (O Sentimental)</strong>
-                    Onde moram as memórias e emoções. É 5x mais rápido que o racional.
-                </div>
-                <div class="brain-part">
-                    <strong>3. Tronco Encefálico (O Sobrevivente)</strong>
-                    Responsável pelos batimentos, respiração e instinto de luta ou fuga.
-                </div>
-            </div>
-            <p>A mentoria foca em dar o comando de volta ao <strong>Estrategista</strong>.</p>
-        </div>
-
-        <div class="page" id="p3">
-            <h2>Dopamina e Vício Digital</h2>
-            <p>A Dopamina não é o hormônio do prazer, mas o da <strong>busca</strong>. É o neurotransmissor que te faz "querer". No mundo digital, estamos sofrendo uma inundação de dopamina barata.</p>
-            <div class="scientific-note">
-                O uso excessivo de redes sociais causa uma 'dessensibilização' dos receptores D2, tornando a vida real menos prazerosa.
-            </div>
-            <div class="exercise-card">
-                <strong>Laboratório de Hábito:</strong> Quais são os 3 momentos do dia em que você sente um impulso incontrolável de checar o celular?
-                <textarea rows="3"></textarea>
-            </div>
-        </div>
-
-        <div id="content-engine"></div>
-
+        <div id="content"></div>
     </div>
 
     <div class="controls">
-        <button class="btn btn-prev" onclick="move(-1)" id="prevBtn">Anterior</button>
-        <span class="page-counter" id="pIndicator">1 / 80</span>
-        <button class="btn btn-next" onclick="move(1)" id="nextBtn">Próximo</button>
+        <button class="btn btn-prev" onclick="move(-1)" id="bPrev">Anterior</button>
+        <span id="pCount" style="font-weight: bold;">1 / 21</span>
+        <button class="btn btn-next" onclick="move(1)" id="bNext">Próximo</button>
     </div>
 </div>
 
 <script>
-    let current = 1;
-    const total = 80;
+    let cur = 1;
+    const total = 21;
 
-    // BANCO DE DADOS DE CONTEÚDO REAL (NÃO REPETITIVO)
-    const lessons = [
-        { t: "Neuroplasticidade Ativa", c: "Seu cérebro é como uma floresta. Caminhos muito usados viram estradas (hábitos). Para criar um novo hábito, você precisa 'machetear' um caminho novo até que ele fique limpo.", n: "A mielinização é o processo que isola os neurônios para que o sinal viaje a 400km/h." },
-        { t: "O Sequestro da Amígdala", c: "Quando você sente raiva súbita, sua amígdala 'rouba' o sangue do córtex frontal. Você fica literalmente incapaz de pensar logicamente por até 20 minutos.", n: "Respirar fundo envia oxigênio para o neocórtex, retomando o controle biológico." },
-        { t: "Fadiga de Decisão", c: "Cada decisão que você toma, desde a cor da meia até um contrato, gasta glicose neural. Por isso, decidimos mal no final do dia.", n: "Minimize escolhas inúteis pela manhã para salvar energia para o que importa." },
-        { t: "O Ciclo do Cortisol", c: "O estresse crônico mantém o cortisol alto, o que 'mata' neurônios no hipocampo, sua central de memória e aprendizado.", n: "A atividade física é o melhor 'limpador' de excesso de cortisol no sangue." },
-        { t: "Nervo Vago: O Freio", c: "O nervo vago conecta o cérebro ao coração e intestino. Ao expirar de forma longa, você ativa o sistema parassimpático.", n: "O controle do nervo vago é a diferença entre o pânico e a serenidade sob pressão." },
-        { t: "Sistema de Recompensa", c: "O cérebro não quer ser feliz, ele quer sobreviver. Ele te premia com bem-estar sempre que você economiza energia ou obtém recursos.", n: "Engane o sistema celebrando 'micro-vitórias' para manter a motivação alta." },
-        { t: "Higiene do Sono", c: "Durante o sono profundo, o sistema glinfático remove toxinas proteicas. Sem isso, seu cérebro inflama e o raciocínio fica nublado.", n: "Luz azul após às 20h bloqueia a produção de melatonina no corpo pineal." }
+    const conteudos = [
+        { t: "Dia 1: Neuroplasticidade", c: "Seu cérebro não é fixo. Hoje, entenda que cada pensamento novo cria uma trilha física na sua mente.", d: "Escreva uma crença limitante que você tem sobre si mesma e transforme-a em uma afirmação lógica." },
+        { t: "Dia 2: O Sequestro da Amígdala", c: "Quando você se estressa, sua amígdala 'rouba' o comando do cérebro. O segredo é a pausa.", d: "Descreva um momento recente onde a emoção venceu a razão. O que você faria diferente?" },
+        { t: "Dia 3: Dopamina Barata", c: "O vício em notificações drena sua energia. Hoje focamos em proteger sua atenção.", d: "Fique 2 horas sem olhar o celular hoje e registre como sua ansiedade se comportou." },
+        { t: "Dia 4: O Nervo Vago", c: "O nervo vago é o freio do seu estresse. Aprender a respirar é aprender a se acalmar sob pressão.", d: "Pratique a respiração 4-7-8 por 5 minutos e descreva a sensação física agora." },
+        { t: "Dia 5: Ciclo de Recompensa", c: "Todo hábito tem um gatilho. Se você mudar o gatilho, muda o destino.", d: "Identifique o gatilho que te faz comer doce ou procrastinar. Qual é o sinal?" },
+        { t: "Dia 6: Mielinização", c: "A repetição isola os neurônios. Quanto mais você repete, mais fácil fica agir corretamente.", d: "Qual habilidade nova você vai repetir hoje, mesmo que sinta preguiça?" },
+        { t: "Dia 7: Fadiga de Decisão", c: "Decidir cansa. Use suas manhãs para o que é difícil e deixe o automático para a noite.", d: "Escolha sua roupa e refeições para amanhã ainda hoje. Como isso libera sua mente?" },
+        { t: "Dia 8: Cortisol vs Ocitocina", c: "O estresse libera cortisol. O abraço e a conexão liberam ocitocina, o antídoto natural.", d: "Tenha uma conversa profunda com alguém hoje. Como isso mudou seu humor?" },
+        { t: "Dia 9: Higiene do Sono", c: "Seu cérebro se limpa à noite. Sem sono, você acorda com o cérebro 'sujo' de toxinas.", d: "Desligue as telas 1 hora antes de dormir hoje. Anote se o despertar foi melhor." },
+        { t: "Dia 10: Viés de Confirmação", c: "Nós buscamos o que já acreditamos. Se você se acha incapaz, seu cérebro vai ignorar suas vitórias.", d: "Liste 3 sucessos pequenos que você teve hoje e que sua mente tentou ignorar." },
+        { t: "Dia 11: O Córtex Pré-Frontal", c: "Ele é o CEO da sua vida. Mas ele precisa de glicose e descanso para trabalhar bem.", d: "Identifique uma tarefa que você adiou. Divida-a em 3 partes minúsculas." },
+        { t: "Dia 12: Sistema de Luta ou Fuga", c: "Seu corpo não sabe a diferença entre um leão e um boleto atrasado.", d: "Quando sentir medo hoje, pergunte: 'Há um risco real de vida ou é apenas meu ego?'" },
+        { t: "Dia 13: Memória Muscular", c: "O corpo aprende antes da mente consciente em muitos casos.", d: "Tente realizar uma tarefa cotidiana com a mão não dominante. Observe seu foco aumentar." },
+        { t: "Dia 14: Neurotransmissores", c: "Serotonina e bem-estar. O que você come afeta como você sente.", d: "Coma algo nutritivo e evite processados por 24h. Note a clareza mental." },
+        { t: "Dia 15: O Poder do Não", c: "Cada 'sim' para os outros é um 'não' para os seus objetivos neurais.", d: "Diga um 'não' educado para algo que drena seu tempo hoje." },
+        { t: "Dia 16: Visualização Ativa", c: "O cérebro não diferencia o real do imaginado com clareza total.", d: "Feche os olhos e visualize seu sucesso por 2 minutos. O que você está sentindo?" },
+        { t: "Dia 17: Resiliência Neural", c: "Cair e levantar fortalece as conexões de persistência.", d: "Lembre de um fracasso e escreva qual foi o aprendizado biológico dele." },
+        { t: "Dia 18: Foco e Atenção", c: "A multitarefa é um mito. Ela apenas alterna o foco e cansa o cérebro.", d: "Trabalhe em uma única coisa por 25 minutos sem interrupções." },
+        { t: "Dia 19: Linguagem e Pensamento", c: "As palavras que você usa moldam a estrutura da sua realidade.", d: "Troque a frase 'Eu tenho que' por 'Eu escolho'. Como isso muda seu peso interno?" },
+        { t: "Dia 20: Empatia e Neurônios Espelho", c: "Nós imitamos o comportamento de quem está ao nosso redor.", d: "Observe alguém que você admira. Tente imitar a postura dela por 10 minutos." },
+        { t: "Dia 21: A Nova Arquitetura", c: "Você chegou ao fim do ciclo básico. Sua mente não é mais a mesma de 21 dias atrás.", d: "Qual é o seu próximo grande compromisso com sua evolução? Assine aqui embaixo." }
     ];
 
-    const container = document.getElementById('content-engine');
-
-    for(let i=4; i<=total; i++) {
+    const container = document.getElementById('content');
+    conteudos.forEach((item, index) => {
+        let i = index + 1;
         let div = document.createElement('div');
         div.id = 'p' + i;
-        div.className = 'page';
-        let data = lessons[i % lessons.length];
-        
+        div.className = 'page' + (i === 1 ? ' active' : '');
         div.innerHTML = `
-            <h3>Módulo de Aprofundamento ${i}</h3>
-            <h2>${data.t}</h2>
-            <p>${data.c}</p>
-            <div class="scientific-note">${data.n}</div>
-            <div class="exercise-card">
-                <strong>Desafio Prático #${i}:</strong> 
-                Como este conhecimento sobre <em>${data.t}</em> explica um erro que você cometeu na última semana?
-                <textarea rows="3" placeholder="Reflexão profunda aqui..."></textarea>
+            <h1>${item.t}</h1>
+            <p>${item.c}</p>
+            <div class="challenge-box">
+                <h3 style="margin-top:0; color:var(--gold);">🎯 Desafio Prático</h3>
+                <p>${item.d}</p>
+                <textarea rows="3" id="text${i}" placeholder="Digite sua resposta aqui..."></textarea>
+                <button class="btn btn-finish" onclick="finishChallenge(${i})">Finalizar Desafio</button>
             </div>
         `;
         container.appendChild(div);
+    });
+
+    function finishChallenge(id) {
+        const text = document.getElementById('text'+id).value;
+        if(text.length < 5) {
+            alert("Por favor, escreva um pouco mais sobre o seu desafio!");
+            return;
+        }
+        document.getElementById('congrats-popup').style.display = 'block';
+    }
+
+    function closePopup() {
+        document.getElementById('congrats-popup').style.display = 'none';
+        if(cur < total) move(1);
     }
 
     function move(step) {
-        document.getElementById('p'+current).classList.remove('active');
-        current += step;
-        if(current < 1) current = 1;
-        if(current > total) current = total;
-        
-        document.getElementById('p'+current).classList.add('active');
-        document.getElementById('fill').style.width = (current/total*100) + '%';
-        document.getElementById('pIndicator').innerText = `${current} / ${total}`;
-        document.getElementById('prevBtn').style.visibility = (current === 1) ? 'hidden' : 'visible';
-        document.querySelector('.viewport').scrollTop = 0;
+        document.getElementById('p'+cur).classList.remove('active');
+        cur += step;
+        if(cur < 1) cur = 1; if(cur > total) cur = total;
+        document.getElementById('p'+cur).classList.add('active');
+        document.getElementById('fill').style.width = (cur/total*100) + '%';
+        document.getElementById('pCount').innerText = `${cur} / ${total}`;
+        document.getElementById('bPrev').style.visibility = (cur === 1) ? 'hidden' : 'visible';
+        document.getElementById('view').scrollTop = 0;
     }
-    document.getElementById('prevBtn').style.visibility = 'hidden';
+    document.getElementById('bPrev').style.visibility = 'hidden';
 </script>
 </body>
 </html>
