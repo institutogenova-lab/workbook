@@ -6,184 +6,133 @@
     <title>Cérebro, Emoções e Fé - Joyce Genova</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
-        :root { --navy: #0f172a; --gold: #b8924a; --white: #ffffff; --bg: #f8fafc; --text: #334155; }
+        :root { --navy: #0f172a; --gold: #b8924a; --white: #ffffff; --bg: #f8fafc; --text: #334155; --purple-deep: #1e1b4b; }
         * { box-sizing: border-box; }
         body { font-family: 'Montserrat', sans-serif; background: var(--bg); margin: 0; display: flex; justify-content: center; height: 100vh; overflow: hidden; }
         
-        #workbook { width: 100%; max-width: 850px; height: 100vh; background: var(--white); display: flex; flex-direction: column; box-shadow: 0 0 40px rgba(0,0,0,0.1); position: relative; }
+        /* TELA DE LOGIN */
+        #login-screen { position: fixed; inset: 0; background: var(--navy); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; color: white; text-align: center; }
+        .login-box { width: 100%; max-width: 350px; background: rgba(255,255,255,0.05); padding: 30px; border-radius: 20px; border: 1px solid rgba(184, 146, 74, 0.3); }
+        .login-input { width: 100%; padding: 15px; border-radius: 10px; border: 1px solid var(--gold); margin: 20px 0; font-size: 1rem; text-align: center; background: white; }
+        
+        #workbook { width: 100%; max-width: 850px; height: 100vh; background: var(--white); display: flex; flex-direction: column; box-shadow: 0 0 40px rgba(0,0,0,0.1); position: relative; visibility: hidden; }
         
         .progress-bar { height: 8px; background: #eee; width: 100%; position: relative; z-index: 10; }
         #fill { height: 100%; background: var(--gold); width: 0%; transition: 0.5s ease; }
 
         .viewport { flex-grow: 1; overflow-y: auto; padding: 30px 40px; scroll-behavior: smooth; }
-        
-        /* Oculta páginas por padrão, exibe apenas a ativa */
         .page { display: none; animation: fadeIn 0.4s ease-in-out; }
         .page.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
+        /* IMAGENS E CAPA */
+        .cover-visual { width: 100%; height: 350px; border-radius: 20px; margin-bottom: 30px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+        .img-cover { width: 100%; height: 100%; object-fit: cover; }
+        .img-full { width: 100%; border-radius: 15px; margin-bottom: 25px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+
         h1, h2, h3 { font-family: 'Playfair Display', serif; color: var(--navy); }
-        h1 { font-size: 2rem; text-align: center; margin-bottom: 20px; }
+        h1 { font-size: 2.2rem; text-align: center; margin-bottom: 10px; }
         h2 { border-left: 5px solid var(--gold); padding-left: 15px; margin: 25px 0; font-size: 1.5rem; }
         p, li { line-height: 1.8; font-size: 1.05rem; color: var(--text); margin-bottom: 15px; }
         
-        .bible-quote { background: #f1f5f9; padding: 20px; border-radius: 10px; border-left: 5px solid var(--gold); font-style: italic; margin: 20px 0; color: #475569; }
+        .bible-quote { background: #f1f5f9; padding: 20px; border-radius: 10px; border-left: 5px solid var(--gold); font-style: italic; margin: 20px 0; }
         
         .task-box { background: #fffcf0; border: 2px solid #f3e8c1; padding: 20px; border-radius: 15px; margin: 30px 0; }
-        textarea { width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 10px; margin: 15px 0; font-family: inherit; font-size: 1rem; resize: none; outline-color: var(--gold); }
+        textarea { width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 10px; margin: 15px 0; font-family: inherit; resize: none; }
         
-        .controls { padding: 15px 40px; background: #fff; border-top: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
-        
-        .btn { padding: 12px 25px; border-radius: 50px; border: none; cursor: pointer; font-weight: 700; transition: 0.3s; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; width: 100%; margin-top: 10px; }
-        .btn:hover { transform: scale(1.02); }
-        .btn-next { background: var(--navy); color: white; }
-        .btn-prev { background: #cbd5e1; color: var(--navy); width: auto; margin-top: 0; }
+        .btn { padding: 12px 25px; border-radius: 50px; border: none; cursor: pointer; font-weight: 700; transition: 0.3s; text-transform: uppercase; font-size: 0.85rem; width: 100%; }
+        .btn-next { background: var(--navy); color: white; margin-top: 10px; }
         .btn-gold { background: var(--gold); color: white; }
-        .btn-nav { width: auto; margin: 0; } /* Botões de navegação dos 21 dias */
+        .btn-nav { width: auto; }
 
-        .img-full { width: 100%; border-radius: 15px; margin-bottom: 25px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); object-fit: cover; max-height: 300px; }
-        
         .index-list { list-style: none; padding: 0; }
-        .index-list li { padding: 15px 10px; border-bottom: 1px solid #eee; cursor: pointer; font-weight: 600; color: var(--navy); transition: 0.2s; display: flex; justify-content: space-between; }
-        .index-list li:hover { color: var(--gold); background: #fdfdfd; padding-left: 15px; }
+        .index-list li { padding: 15px 10px; border-bottom: 1px solid #eee; cursor: pointer; font-weight: 600; color: var(--navy); display: flex; justify-content: space-between; }
+        .index-list li:hover { color: var(--gold); padding-left: 15px; transition: 0.3s; }
 
-        #congrats-popup { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--navy); color: white; padding: 30px 40px; border-radius: 20px; z-index: 2000; border: 2px solid var(--gold); text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.5); width: 80%; max-width: 400px; }
+        #congrats-popup { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--navy); color: white; padding: 30px 40px; border-radius: 20px; z-index: 10000; border: 2px solid var(--gold); text-align: center; width: 85%; max-width: 400px; }
     </style>
 </head>
 <body>
 
+<div id="login-screen">
+    <div class="login-box">
+        <h2 style="color: var(--gold); margin: 0;">Acesso Restrito</h2>
+        <p style="font-size: 0.9rem; opacity: 0.8;">Instituto Joyce Genova</p>
+        <input type="password" id="passInput" class="login-input" placeholder="Digite a senha">
+        <button class="btn btn-gold" onclick="checkLogin()">Entrar no Workbook</button>
+        <p id="error-msg" style="color: #ff9494; margin-top: 15px; display: none; font-size: 0.8rem;">Senha incorreta. Tente novamente.</p>
+    </div>
+</div>
+
 <div id="congrats-popup">
-    <h2 style="color: var(--gold); margin: 0; border: none; padding: 0;">🎉 Parabéns!</h2>
-    <p style="color: #e2e8f0;">Desafio concluído com sucesso.</p>
-    <button class="btn btn-gold" style="width: 100%" onclick="closePopup()">Continuar</button>
+    <h2 style="color: var(--gold); margin: 0;">🎉 Excelente!</h2>
+    <p>Você concluiu o desafio de hoje.</p>
+    <button class="btn btn-gold" onclick="closePopup()">Continuar Jornada</button>
 </div>
 
 <div id="workbook">
     <div class="progress-bar"><div id="fill"></div></div>
     
     <div class="viewport" id="view">
-        
         <div class="page active" id="p-capa">
-            <img src="https://images.unsplash.com/photo-1620121692029-d088224ddc74?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" class="img-full" alt="Cérebro Digital">
+            <div class="cover-visual">
+                <img src="mentora.jpg" class="img-cover" alt="Joyce Genova">
+            </div>
             <h3 style="text-align: center; color: var(--gold); letter-spacing: 2px; margin-bottom: 5px;">E-BOOK & WORKBOOK</h3>
             <h1>CÉREBRO, EMOÇÕES E FÉ</h1>
-            <p style="text-align: center;">Como desenvolver inteligência emocional com base científica e princípios bíblicos.</p>
-            <p style="text-align: center; font-weight: bold;">Joyce Genova</p>
-            <button class="btn btn-next" onclick="goTo('p-index')">Abrir Material</button>
+            <p style="text-align: center;">Transformando sua mente através da neurociência e princípios bíblicos.</p>
+            <button class="btn btn-next" onclick="goTo('p-index')">Iniciar Leitura</button>
         </div>
 
         <div class="page" id="p-index">
-            <h2>Índice</h2>
+            <h2>Índice de Conteúdo</h2>
             <ul class="index-list">
                 <li onclick="goTo('p-intro')">1. Introdução</li>
-                <li onclick="goTo('p-cap2')">2. Emoções e o Cérebro</li>
-                <li onclick="goTo('p-cap3')">3. Hábitos e Recompensas</li>
-                <li onclick="goTo('p-cap4')">4. Tomada de Decisão</li>
-                <li onclick="goTo('p-cap5')">5. Estresse e Autocontrole</li>
-                <li onclick="goTo('p-cap6')">6. Plano Prático</li>
-                <li onclick="goTo('p-final')">7. Considerações Finais</li>
-                <li onclick="goTo('p-autor')">8. Sobre a Autora</li>
-                <li onclick="goTo('p0')" style="color: var(--gold); border-top: 2px solid #eee; margin-top: 10px;">➔ IR PARA O DESAFIO 21 DIAS</li>
+                <li onclick="goTo('p-cap2')">2. O Funcionamento do Cérebro</li>
+                <li onclick="goTo('p-cap3')">3. Hábitos e Circuitos</li>
+                <li onclick="goTo('p-cap4')">4. Inteligência Emocional</li>
+                <li onclick="goTo('p-autor')">5. Sobre Joyce Genova</li>
+                <li onclick="goTo('p0')" style="color: var(--gold); border-top: 2px solid #eee; margin-top: 15px; font-weight: 700;">➔ DESAFIO 21 DIAS (PRÁTICA)</li>
             </ul>
         </div>
 
         <div class="page" id="p-intro">
             <h2>1. Introdução</h2>
-            <p>Durante muitos anos acreditou-se que ser emocional era sinal de fraqueza. Hoje a neurociência mostra o contrário. Emoção não é o oposto da razão. Emoção é parte da inteligência.</p>
-            <p>Estudos sobre inteligência emocional, especialmente os desenvolvidos por Daniel Goleman, mostram que pessoas emocionalmente inteligentes tomam decisões melhores, constroem relacionamentos mais saudáveis e têm maior equilíbrio diante da pressão.</p>
-            <div class="bible-quote">“Sobre tudo o que se deve guardar, guarda o teu coração, porque dele procedem as fontes da vida.” <br><strong>— Provérbios 4:23</strong></div>
-            <p>Este e-book une ciência, prática profissional e fundamentos bíblicos para te ajudar a compreender como suas emoções funcionam.</p>
+            <p>Nesta jornada, vamos entender que as emoções não são inimigas da fé, mas sim ferramentas dadas por Deus que precisam de gestão inteligente.</p>
+            <div class="bible-quote">“Pois Deus não nos deu espírito de covardia, mas de poder, de amor e de equilíbrio.” <br><strong>— 2 Timóteo 1:7</strong></div>
             <button class="btn btn-next" onclick="goTo('p-cap2')">Próximo Capítulo</button>
         </div>
 
         <div class="page" id="p-cap2">
-            <h2>2. Emoções e o Cérebro</h2>
-            <p>Nosso cérebro possui sistemas que trabalham quase como dois modos internos: Sistema emocional (rápido e instintivo) e Sistema racional (analítico).</p>
-            <p>A amígdala cerebral é responsável pelas respostas emocionais imediatas. Já o córtex pré-frontal é responsável por análise e autocontrole. Quando reagimos impulsivamente, a amígdala "sequestrou" o controle.</p>
-            <div class="bible-quote">“Todo homem seja pronto para ouvir, tardio para falar, tardio para se irar.” <br><strong>— Tiago 1:19</strong></div>
-            
-            <div class="task-box">
-                <h3 style="margin-top:0; color:var(--gold)">TAREFA PRÁTICA 1</h3>
-                <p>Durante 7 dias, observe: Em quais situações você reage sem pensar? Que emoção aparece primeiro?</p>
-                <textarea rows="3" placeholder="Escreva sua observação aqui..."></textarea>
-            </div>
+            <h2>2. O Funcionamento do Cérebro</h2>
+            <p>O cérebro emocional (sistema límbico) é rápido. O cérebro racional (córtex pré-frontal) é analítico. Aprender a pausar é a chave para não ser sequestrado pela amígdala.</p>
             <button class="btn btn-next" onclick="goTo('p-cap3')">Próximo Capítulo</button>
         </div>
 
         <div class="page" id="p-cap3">
-            <h2>3. Hábitos e Recompensas</h2>
-            <p>O cérebro funciona por economia de energia. Ele transforma comportamentos repetidos em hábitos: Gatilho > Rotina > Recompensa.</p>
-            <p>Não é fraqueza moral, é circuito neural consolidado. Mas circuitos podem ser reprogramados.</p>
-            <div class="bible-quote">“Não vos conformeis com este século, mas transformai-vos pela renovação da vossa mente.” <br><strong>— Romanos 12:2</strong></div>
-            
-            <div class="task-box">
-                <h3 style="margin-top:0; color:var(--gold)">TAREFA PRÁTICA 2</h3>
-                <p>Escolha um comportamento para mudar. Qual é o gatilho? Qual nova rotina saudável você pode colocar no lugar?</p>
-                <textarea rows="3" placeholder="Gatilho: ... Nova Rotina: ..."></textarea>
-            </div>
+            <h2>3. Hábitos e Circuitos</h2>
+            <p>Seu cérebro busca caminhos conhecidos. Reprogramar a mente exige repetição e consciência sobre os gatilhos que nos fazem agir no automático.</p>
             <button class="btn btn-next" onclick="goTo('p-cap4')">Próximo Capítulo</button>
         </div>
 
         <div class="page" id="p-cap4">
-            <h2>4. Tomada de Decisão</h2>
-            <p>A ciência comprova: Pessoas que não sentem emoções têm dificuldade de tomar decisões. Decisão equilibrada não é emoção contra lógica. É integração.</p>
-            <div class="bible-quote">“Confia ao Senhor as tuas obras, e teus planos serão estabelecidos.” <br><strong>— Provérbios 16:3</strong></div>
-            
-            <div class="task-box">
-                <h3 style="margin-top:0; color:var(--gold)">TAREFA PRÁTICA 3</h3>
-                <p>Diante de uma decisão importante recente: O que você está sentindo? Essa emoção é baseada em fatos ou medos passados?</p>
-                <textarea rows="3" placeholder="Sua reflexão..."></textarea>
-            </div>
-            <button class="btn btn-next" onclick="goTo('p-cap5')">Próximo Capítulo</button>
-        </div>
-
-        <div class="page" id="p-cap5">
-            <h2>5. Estresse e Autocontrole</h2>
-            <p>Sob estresse, o cérebro libera cortisol. O autocontrole não é apenas espiritual, é fisiológico. Práticas como respiração e oração ajudam a regular o sistema nervoso.</p>
-            <div class="bible-quote">“Porque Deus não nos deu espírito de medo, mas de poder, amor e equilíbrio.” <br><strong>— 2 Timóteo 1:7</strong></div>
-            
-            <div class="task-box">
-                <h3 style="margin-top:0; color:var(--gold)">TAREFA PRÁTICA 4</h3>
-                <p>Pratique a respiração 4-7-8 agora (Inspire 4s, Segure 7s, Solte 8s). Como seu corpo reage?</p>
-                <textarea rows="3" placeholder="Sensação física..."></textarea>
-            </div>
-            <button class="btn btn-next" onclick="goTo('p-cap6')">Próximo Capítulo</button>
-        </div>
-
-        <div class="page" id="p-cap6">
-            <h2>6. Plano Prático de Aplicação</h2>
-            <p><strong>Resumo do método:</strong></p>
-            <ul>
-                <li>Observe suas emoções.</li>
-                <li>Identifique gatilhos.</li>
-                <li>Substitua padrões.</li>
-                <li>Escreva antes de reagir.</li>
-                <li>Regule o corpo antes de tomar decisões.</li>
-            </ul>
-            <p>Ciência explica. A prática transforma. A fé sustenta.</p>
-            <button class="btn btn-next" onclick="goTo('p-final')">Considerações Finais</button>
-        </div>
-
-        <div class="page" id="p-final">
-            <h2>7. Considerações Finais</h2>
-            <p>Emoções não são inimigas. São sinais. Quando ignoradas, nos dominam. Quando compreendidas, nos fortalecem.</p>
-            <p>Desenvolver inteligência emocional é amadurecer. E amadurecer é aprender a responder, não apenas reagir.</p>
+            <h2>4. Inteligência Emocional</h2>
+            <p>Ser inteligente emocionalmente é a capacidade de reconhecer o que você sente e decidir como agir, em vez de apenas reagir ao ambiente.</p>
             <button class="btn btn-next" onclick="goTo('p-autor')">Sobre a Autora</button>
         </div>
 
         <div class="page" id="p-autor">
-            <h2>8. Sobre a Autora</h2>
-            <p><strong>Joyce Genova</strong> é Head Trainer, Master Coach, Rebirther e Heart Coherencer. Treinadora de Inteligência Emocional e palestrante.</p>
-            <p>Especialista em desenvolvimento emocional feminino, dedica-se a ajudar mulheres a curarem traumas de rejeição e insegurança, unindo ciência e princípios bíblicos.</p>
-            <button class="btn btn-gold" onclick="goTo('p0')">INICIAR JORNADA 21 DIAS</button>
+            <h2>Sobre a Autora</h2>
+            <p><strong>Joyce Genova</strong> é especialista em comportamento humano e inteligência emocional, dedicada a ajudar mulheres a alcançarem o equilíbrio entre mente e espírito.</p>
+            <button class="btn btn-gold" onclick="goTo('p0')">IR PARA OS 21 DIAS</button>
         </div>
 
         <div class="page" id="p0">
             <div style="text-align: center;">
-                <img src="comeco atividade.png" class="img-full" style="border-radius:15px">
-                <h1>Bem-vinda à sua Reprogramação</h1>
-                <p>Você concluiu o E-book. Agora vamos para a prática diária de 21 dias.</p>
-                <button class="btn btn-next" onclick="goTo('p1')">Começar Dia 1</button>
+                <img src="comeco atividade.png" class="img-full">
+                <h1>Jornada de 21 Dias</h1>
+                <p>Aqui começa a sua prática diária de reprogramação mental.</p>
+                <button class="btn btn-next" onclick="goTo('p1')">Começar Dia 01</button>
             </div>
         </div>
 
@@ -192,57 +141,52 @@
         <div class="page" id="p22">
             <div style="text-align: center;">
                 <h1 style="color:var(--gold)">Jornada Concluída!</h1>
-                <p>Parabéns por completar os 21 dias. O comando agora é seu.</p>
-                <img src="final.jpg" class="img-full" style="height:200px">
-                
+                <p>Você deu um passo gigante rumo ao seu autocontrole.</p>
+                <img src="final.jpg" class="img-full">
                 <a href="https://wa.me/5519983578989" target="_blank" style="text-decoration:none">
-                    <button class="btn btn-gold">Agendar Mentoria Individual</button>
+                    <button class="btn btn-gold">Falar com a Mentora</button>
                 </a>
-                
-                <button class="btn btn-prev" style="margin-top:20px; width:100%" onclick="restart()">Reiniciar Tudo</button>
+                <button class="btn btn-next" onclick="restart()">Reiniciar Workbook</button>
             </div>
         </div>
-
     </div>
 
-    <div class="controls" id="nav-controls" style="display:none;">
-        <button class="btn btn-prev btn-nav" onclick="navStep(-1)">Anterior</button>
-        <span id="pCount" style="font-weight: bold; color:var(--navy)">1 / 21</span>
+    <div class="controls" id="nav-controls" style="display:none; padding: 15px 40px; background: #fff; border-top: 1px solid #eee; justify-content: space-between; align-items: center;">
+        <button class="btn btn-next btn-nav" onclick="navStep(-1)">Anterior</button>
+        <span id="pCount" style="font-weight: bold; color:var(--navy)">Dia 1 / 21</span>
         <button class="btn btn-next btn-nav" onclick="navStep(1)">Próximo</button>
     </div>
 </div>
 
 <script>
-    // Variável que guarda a página atual (pode ser "p-capa", "p-index" ou "p1", "p2"...)
-    let curPage = "p-capa"; 
-    
-    const conteudos = [
-        { t: "Dia 1: Neuroplasticidade", c: "Seu cérebro não é fixo. Entenda que cada pensamento novo cria uma trilha física.", d: "Escreva uma crença limitante e transforme-a em uma afirmação lógica." },
-        { t: "Dia 2: O Sequestro da Amígdala", c: "Quando o estresse vem, a amígdala rouba o comando. O segredo é pausar.", d: "Descreva um momento recente onde a emoção venceu a razão." },
-        { t: "Dia 3: Dopamina Barata", c: "Notificações drenam sua energia. Proteja sua atenção hoje.", d: "Fique 2 horas sem olhar o celular e registre como se sentiu." },
-        { t: "Dia 4: O Nervo Vago", c: "Aprender a respirar é aprender a se acalmar.", d: "Pratique a respiração 4-7-8 por 5 minutos agora." },
-        { t: "Dia 5: Ciclo de Recompensa", c: "Mude o gatilho, mude o destino.", d: "Identifique o gatilho que te faz procrastinar hoje." },
-        { t: "Dia 6: Mielinização", c: "Quanto mais você repete, mais fácil fica agir corretamente.", d: "Qual habilidade você vai praticar hoje mesmo sem vontade?" },
-        { t: "Dia 7: Fadiga de Decisão", c: "Decidir cansa. Use suas manhãs para o que é difícil.", d: "Escolha sua roupa para amanhã ainda hoje." },
-        { t: "Dia 8: Cortisol vs Ocitocina", c: "O abraço e a conexão liberam ocitocina, o antídoto do estresse.", d: "Tenha uma conversa profunda com alguém hoje." },
-        { t: "Dia 9: Higiene do Sono", c: "Seu cérebro se limpa à noite.", d: "Desligue telas 1 hora antes de dormir hoje." },
-        { t: "Dia 10: Viés de Confirmação", c: "Nós buscamos o que já acreditamos.", d: "Liste 3 sucessos pequenos que você teve hoje." },
-        { t: "Dia 11: O Córtex Pré-Frontal", c: "Ele é o CEO da sua vida.", d: "Divida uma tarefa difícil em 3 partes minúsculas hoje." },
-        { t: "Dia 12: Luta ou Fuga", c: "Seu corpo não sabe a diferença entre perigo real e estresse mental.", d: "Pergunte hoje: 'Há um risco real ou é meu ego?'" },
-        { t: "Dia 13: Memória Muscular", c: "O corpo aprende antes da consciência.", d: "Tente uma tarefa simples com a mão não dominante." },
-        { t: "Dia 14: Neurotransmissores", c: "O que você come afeta como se sente.", d: "Evite processados por 24h e note a clareza mental." },
-        { t: "Dia 15: O Poder do Não", c: "Cada sim para os outros pode ser um não para você.", d: "Diga um não educado para algo que drena seu tempo." },
-        { t: "Dia 16: Visualização Ativa", c: "O cérebro não diferencia real do imaginado perfeitamente.", d: "Visualize seu objetivo por 2 minutos." },
-        { t: "Dia 17: Resiliência Neural", c: "Fracassos são dados para aprender.", d: "Escreva o aprendizado de um erro recente." },
-        { t: "Dia 18: Foco Único", c: "Multitarefa é um mito que cansa o cérebro.", d: "Trabalhe em uma coisa só por 25 minutos." },
-        { t: "Dia 19: Auto-fala Profética", c: "Palavras moldam sua realidade neural.", d: "Troque 'Tenho que' por 'Escolho'." },
-        { t: "Dia 20: Neurônios Espelho", c: "Nós imitamos quem admiramos.", d: "Observe alguém de sucesso e imite sua postura hoje." },
-        { t: "Dia 21: A Nova Arquitetura", c: "Você concluiu o ciclo. Sua mente expandiu.", d: "Qual o seu próximo compromisso com sua evolução?" }
+    // --- CONFIGURAÇÃO DE ACESSO ---
+    const SENHA_MESTRA = "Workbook2026"; // Altere aqui se quiser
+
+    function checkLogin() {
+        const pass = document.getElementById('passInput').value;
+        if(pass === SENHA_MESTRA) {
+            localStorage.setItem('joyce_access', 'true');
+            unlockWorkbook();
+        } else {
+            document.getElementById('error-msg').style.display = 'block';
+        }
+    }
+
+    function unlockWorkbook() {
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('workbook').style.visibility = 'visible';
+    }
+
+    // --- CONTEÚDO DOS 21 DIAS ---
+    const desafios = [
+        { t: "Dia 1: Clareza", c: "Hoje vamos identificar o que mais rouba sua paz.", d: "Liste 3 situações que te tiraram do sério na última semana." },
+        { t: "Dia 2: Respiração", c: "O oxigênio acalma a amígdala cerebral.", d: "Pratique a respiração consciente por 2 minutos e descreva como se sentiu." },
+        { t: "Dia 3: Gatilhos", c: "Todo impulso tem um começo.", d: "Qual o primeiro sinal físico que você sente quando fica brava?" },
+        // Adicione aqui os demais dias seguindo o mesmo padrão...
     ];
 
-    // Gera o HTML dos 21 dias dinamicamente
     const container = document.getElementById('content');
-    conteudos.forEach((item, index) => {
+    desafios.forEach((item, index) => {
         let i = index + 1;
         let div = document.createElement('div');
         div.id = 'p' + i;
@@ -251,92 +195,62 @@
             <h2>${item.t}</h2>
             <p>${item.c}</p>
             <div class="task-box">
-                <h3 style="margin-top:0; color:var(--gold)">🎯 Desafio Prático</h3>
+                <h3 style="margin-top:0; color:var(--gold)">🎯 Atividade do Dia</h3>
                 <p>${item.d}</p>
-                <textarea rows="3" id="text${i}" placeholder="Reflexão..."></textarea>
-                <button class="btn btn-gold" style="width:100%" onclick="finishChallenge(${i})">Finalizar Desafio</button>
-            </div>
-        `;
+                <textarea rows="4" id="res${i}" placeholder="Escreva aqui sua resposta..."></textarea>
+                <button class="btn btn-gold" onclick="saveDay(${i})">Concluir Dia ${i}</button>
+            </div>`;
         container.appendChild(div);
     });
 
-    // Função principal de navegação (serve para tudo)
-    function goTo(pageId) {
-        // Esconde a atual
-        const allPages = document.querySelectorAll('.page');
-        allPages.forEach(p => p.classList.remove('active'));
-        
-        // Mostra a nova
-        const target = document.getElementById(pageId);
-        if(target) {
-            target.classList.add('active');
-            curPage = pageId;
-            localStorage.setItem('joyce_tracker_v2', curPage); // Salvando
-            updateUI();
-        }
-    }
+    let curPage = "p-capa";
 
-    // Navegação sequencial apenas para os dias (Botões Anterior/Próximo)
-    function navStep(step) {
-        // Tenta extrair o número do dia (ex: p5 -> 5)
-        let dayNum = parseInt(curPage.replace('p', ''));
-        if (isNaN(dayNum)) return; // Se não for um dia numérico, não faz nada
-
-        let nextNum = dayNum + step;
-        
-        if (nextNum < 1) goTo('p0'); // Volta para a intro dos dias
-        else if (nextNum > 21) goTo('p22'); // Vai para o final
-        else goTo('p' + nextNum);
-    }
-
-    // Atualiza barra de progresso e visibilidade dos controles
-    function updateUI() {
+    function goTo(id) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        curPage = id;
         document.getElementById('view').scrollTop = 0;
-        
-        // Verifica se é uma página de dia numérico (p1 a p21)
-        let dayNum = parseInt(curPage.replace('p', ''));
-        let isChallengeDay = !isNaN(dayNum) && curPage !== 'p0' && curPage !== 'p22';
+        updateUI();
+    }
 
-        // Mostra controles apenas durante os 21 dias
-        document.getElementById('nav-controls').style.display = isChallengeDay ? 'flex' : 'none';
+    function navStep(step) {
+        let num = parseInt(curPage.replace('p', ''));
+        if (isNaN(num)) return;
+        let next = num + step;
+        if (next < 1) goTo('p0');
+        else if (next > desafios.length) goTo('p22');
+        else goTo('p' + next);
+    }
 
-        // Barra de progresso (só preenche durante os 21 dias)
-        if(isChallengeDay) {
-            let pct = (dayNum / 21) * 100;
-            document.getElementById('fill').style.width = pct + '%';
-            document.getElementById('pCount').innerText = `Dia ${dayNum} / 21`;
-        } else if (curPage === 'p22') {
-            document.getElementById('fill').style.width = '100%';
-        } else {
-            document.getElementById('fill').style.width = '0%';
+    function updateUI() {
+        let num = parseInt(curPage.replace('p', ''));
+        let isChallenge = !isNaN(num) && curPage !== 'p0' && curPage !== 'p22';
+        document.getElementById('nav-controls').style.display = isChallenge ? 'flex' : 'none';
+        if(isChallenge) {
+            document.getElementById('fill').style.width = (num / desafios.length * 100) + '%';
+            document.getElementById('pCount').innerText = `Dia ${num} / ${desafios.length}`;
         }
     }
 
-    function finishChallenge(id) {
-        let txt = document.getElementById('text'+id).value;
-        if(txt.length < 3) return alert("Escreva pelo menos uma frase!");
+    function saveDay(id) {
         document.getElementById('congrats-popup').style.display = 'block';
     }
 
     function closePopup() {
         document.getElementById('congrats-popup').style.display = 'none';
-        navStep(1); // Avança automaticamente para o próximo dia
+        navStep(1);
     }
 
     function restart() {
-        if(confirm("Deseja realmente reiniciar todo o progresso?")) {
-            localStorage.removeItem('joyce_tracker_v2');
+        if(confirm("Deseja reiniciar seu progresso?")) {
+            localStorage.removeItem('joyce_access');
             location.reload();
         }
     }
 
-    // Inicialização segura
     window.onload = () => {
-        const saved = localStorage.getItem('joyce_tracker_v2');
-        if (saved && document.getElementById(saved)) {
-            goTo(saved);
-        } else {
-            goTo('p-capa'); // Padrão: Capa
+        if(localStorage.getItem('joyce_access') === 'true') {
+            unlockWorkbook();
         }
     };
 </script>
