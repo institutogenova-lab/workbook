@@ -10,10 +10,9 @@
         * { box-sizing: border-box; }
         body { font-family: 'Montserrat', sans-serif; background: var(--bg); margin: 0; display: flex; justify-content: center; height: 100vh; overflow: hidden; }
         
-        /* TELA DE LOGIN */
         #login-screen { position: fixed; inset: 0; background: var(--navy); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; color: white; text-align: center; }
         .login-box { width: 100%; max-width: 350px; background: rgba(255,255,255,0.05); padding: 30px; border-radius: 20px; border: 1px solid rgba(184, 146, 74, 0.3); }
-        .login-input { width: 100%; padding: 15px; border-radius: 10px; border: 1px solid var(--gold); margin: 20px 0; font-size: 1rem; text-align: center; background: white; }
+        .login-input { width: 100%; padding: 15px; border-radius: 10px; border: 1px solid var(--gold); margin: 20px 0; font-size: 1rem; text-align: center; background: white; color: black; }
         
         #workbook { width: 100%; max-width: 850px; height: 100vh; background: var(--white); display: flex; flex-direction: column; box-shadow: 0 0 40px rgba(0,0,0,0.1); position: relative; visibility: hidden; }
         
@@ -25,7 +24,6 @@
         .page.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* IMAGENS E CAPA */
         .cover-visual { width: 100%; height: 350px; border-radius: 20px; margin-bottom: 30px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
         .img-cover { width: 100%; height: 100%; object-fit: cover; }
         .img-full { width: 100%; border-radius: 15px; margin-bottom: 25px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
@@ -36,27 +34,26 @@
         p, li { line-height: 1.8; font-size: 1.05rem; color: var(--text); margin-bottom: 15px; }
         
         .bible-quote { background: #f1f5f9; padding: 20px; border-radius: 10px; border-left: 5px solid var(--gold); font-style: italic; margin: 20px 0; }
-        
         .task-box { background: #fffcf0; border: 2px solid #f3e8c1; padding: 20px; border-radius: 15px; margin: 30px 0; }
-        textarea { width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 10px; margin: 15px 0; font-family: inherit; resize: none; }
+        textarea { width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 10px; margin: 15px 0; font-family: inherit; font-size: 1rem; resize: none; outline-color: var(--gold); }
         
-        .btn { padding: 12px 25px; border-radius: 50px; border: none; cursor: pointer; font-weight: 700; transition: 0.3s; text-transform: uppercase; font-size: 0.85rem; width: 100%; }
+        .btn { padding: 12px 25px; border-radius: 50px; border: none; cursor: pointer; font-weight: 700; transition: 0.3s; text-transform: uppercase; font-size: 0.85rem; width: 100%; letter-spacing: 1px; }
         .btn-next { background: var(--navy); color: white; margin-top: 10px; }
         .btn-gold { background: var(--gold); color: white; }
-        .btn-nav { width: auto; }
+        .btn-nav { width: auto; margin: 0; }
 
         .index-list { list-style: none; padding: 0; }
         .index-list li { padding: 15px 10px; border-bottom: 1px solid #eee; cursor: pointer; font-weight: 600; color: var(--navy); display: flex; justify-content: space-between; }
-        .index-list li:hover { color: var(--gold); padding-left: 15px; transition: 0.3s; }
+        .index-list li:hover { color: var(--gold); background: #fdfdfd; padding-left: 15px; }
 
-        #congrats-popup { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--navy); color: white; padding: 30px 40px; border-radius: 20px; z-index: 10000; border: 2px solid var(--gold); text-align: center; width: 85%; max-width: 400px; }
+        #congrats-popup { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--navy); color: white; padding: 30px 40px; border-radius: 20px; z-index: 10000; border: 2px solid var(--gold); text-align: center; width: 85%; max-width: 400px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
     </style>
 </head>
 <body>
 
 <div id="login-screen">
     <div class="login-box">
-        <h2 style="color: var(--gold); margin: 0;">Acesso Restrito</h2>
+        <h2 style="color: var(--gold); margin: 0; border: none;">Acesso Restrito</h2>
         <p style="font-size: 0.9rem; opacity: 0.8;">Instituto Joyce Genova</p>
         <input type="password" id="passInput" class="login-input" placeholder="Digite a senha">
         <button class="btn btn-gold" onclick="checkLogin()">Entrar no Workbook</button>
@@ -65,7 +62,7 @@
 </div>
 
 <div id="congrats-popup">
-    <h2 style="color: var(--gold); margin: 0;">🎉 Excelente!</h2>
+    <h2 style="color: var(--gold); margin: 0; border: none;">🎉 Excelente!</h2>
     <p>Você concluiu o desafio de hoje.</p>
     <button class="btn btn-gold" onclick="closePopup()">Continuar Jornada</button>
 </div>
@@ -75,9 +72,7 @@
     
     <div class="viewport" id="view">
         <div class="page active" id="p-capa">
-            <div class="cover-visual">
-                <img src="mentora.jpg" class="img-cover" alt="Joyce Genova">
-            </div>
+            <div class="cover-visual"><img src="mentora.jpg" class="img-cover" alt="Joyce Genova"></div>
             <h3 style="text-align: center; color: var(--gold); letter-spacing: 2px; margin-bottom: 5px;">E-BOOK & WORKBOOK</h3>
             <h1>CÉREBRO, EMOÇÕES E FÉ</h1>
             <p style="text-align: center;">Transformando sua mente através da neurociência e princípios bíblicos.</p>
@@ -159,8 +154,7 @@
 </div>
 
 <script>
-    // --- CONFIGURAÇÃO DE ACESSO ---
-    const SENHA_MESTRA = "Workbook2026"; // Altere aqui se quiser
+    const SENHA_MESTRA = "Workbook2026";
 
     function checkLogin() {
         const pass = document.getElementById('passInput').value;
@@ -177,12 +171,28 @@
         document.getElementById('workbook').style.visibility = 'visible';
     }
 
-    // --- CONTEÚDO DOS 21 DIAS ---
     const desafios = [
-        { t: "Dia 1: Clareza", c: "Hoje vamos identificar o que mais rouba sua paz.", d: "Liste 3 situações que te tiraram do sério na última semana." },
-        { t: "Dia 2: Respiração", c: "O oxigênio acalma a amígdala cerebral.", d: "Pratique a respiração consciente por 2 minutos e descreva como se sentiu." },
-        { t: "Dia 3: Gatilhos", c: "Todo impulso tem um começo.", d: "Qual o primeiro sinal físico que você sente quando fica brava?" },
-        // Adicione aqui os demais dias seguindo o mesmo padrão...
+        { t: "Dia 1: Clareza", c: "Identifique o que rouba sua paz.", d: "Liste 3 situações de estresse da última semana." },
+        { t: "Dia 2: Respiração", c: "Acalme a amígdala.", d: "Pratique a respiração 4-7-8 por 2 minutos." },
+        { t: "Dia 3: Gatilhos", c: "Onde tudo começa.", d: "Qual o seu maior gatilho de impaciência hoje?" },
+        { t: "Dia 4: Dopamina", c: "Foco e prazer.", d: "Fique 1 hora sem redes sociais hoje." },
+        { t: "Dia 5: Auto-observação", c: "Consciência.", d: "Anote uma emoção forte que sentiu hoje." },
+        { t: "Dia 6: Linguagem", c: "Poder das palavras.", d: "Substitua uma reclamação por um agradecimento." },
+        { t: "Dia 7: Descanso", c: "Recupere o cérebro.", d: "Durma 30 min mais cedo hoje." },
+        { t: "Dia 8: Mielinização", c: "Repetição cria caminhos.", d: "Repita sua nova afirmação 5 vezes." },
+        { t: "Dia 9: Cortisol", c: "Baixando o estresse.", d: "Faça uma caminhada leve de 15 minutos." },
+        { t: "Dia 10: Ocitocina", c: "Conexão cura.", d: "Envie uma mensagem de carinho a alguém." },
+        { t: "Dia 11: Decisão", c: "Cansaço mental.", d: "Escolha sua roupa de amanhã agora." },
+        { t: "Dia 12: Crenças", c: "Raízes profundas.", d: "Qual pensamento negativo mais te persegue?" },
+        { t: "Dia 13: Renovação", c: "Mente nova.", d: "Leia um Salmo e medite por 5 minutos." },
+        { t: "Dia 14: Silêncio", c: "Ouvir a si mesma.", d: "Fique 5 minutos em silêncio absoluto." },
+        { t: "Dia 15: Limites", c: "Dizer não é autocuidado.", d: "A qual tarefa você dirá 'não' hoje?" },
+        { t: "Dia 16: Visualização", c: "Treino mental.", d: "Imagine-se reagindo com calma a um problema." },
+        { t: "Dia 17: Nutrição", c: "Combustível cerebral.", d: "Beba 2 litros de água hoje." },
+        { t: "Dia 18: Perdão", c: "Libertação.", d: "Escreva o nome de quem você precisa perdoar." },
+        { t: "Dia 19: Propósito", c: "O 'Porquê'.", d: "Por que você quer ser emocionalmente livre?" },
+        { t: "Dia 20: Influência", c: "Ambiente importa.", d: "Ouça um podcast edificante hoje." },
+        { t: "Dia 21: Celebração", c: "Fixação.", d: "Como você vai celebrar sua vitória de hoje?" }
     ];
 
     const container = document.getElementById('content');
@@ -192,19 +202,17 @@
         div.id = 'p' + i;
         div.className = 'page';
         div.innerHTML = `
-            <h2>${item.t}</h2>
-            <p>${item.c}</p>
+            <h2>${item.t}</h2><p>${item.c}</p>
             <div class="task-box">
-                <h3 style="margin-top:0; color:var(--gold)">🎯 Atividade do Dia</h3>
+                <h3 style="margin-top:0; color:var(--gold)">🎯 Atividade</h3>
                 <p>${item.d}</p>
-                <textarea rows="4" id="res${i}" placeholder="Escreva aqui sua resposta..."></textarea>
+                <textarea rows="4" id="res${i}" placeholder="Minha resposta..."></textarea>
                 <button class="btn btn-gold" onclick="saveDay(${i})">Concluir Dia ${i}</button>
             </div>`;
         container.appendChild(div);
     });
 
     let curPage = "p-capa";
-
     function goTo(id) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById(id).classList.add('active');
@@ -232,27 +240,11 @@
         }
     }
 
-    function saveDay(id) {
-        document.getElementById('congrats-popup').style.display = 'block';
-    }
+    function saveDay(id) { document.getElementById('congrats-popup').style.display = 'block'; }
+    function closePopup() { document.getElementById('congrats-popup').style.display = 'none'; navStep(1); }
+    function restart() { if(confirm("Reiniciar progresso?")) { localStorage.removeItem('joyce_access'); location.reload(); } }
 
-    function closePopup() {
-        document.getElementById('congrats-popup').style.display = 'none';
-        navStep(1);
-    }
-
-    function restart() {
-        if(confirm("Deseja reiniciar seu progresso?")) {
-            localStorage.removeItem('joyce_access');
-            location.reload();
-        }
-    }
-
-    window.onload = () => {
-        if(localStorage.getItem('joyce_access') === 'true') {
-            unlockWorkbook();
-        }
-    };
+    window.onload = () => { if(localStorage.getItem('joyce_access') === 'true') unlockWorkbook(); };
 </script>
 </body>
 </html>
