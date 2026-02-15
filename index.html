@@ -23,10 +23,6 @@
         .page.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* AJUSTE DA IMAGEM DA CAPA */
-        .img-container { width: 100%; display: flex; justify-content: center; margin-bottom: 20px; }
-        .img-capa { width: 220px; height: 220px; object-fit: cover; border-radius: 50%; border: 3px solid var(--gold); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-
         h1, h2, h3 { font-family: 'Playfair Display', serif; color: var(--navy); }
         h1 { font-size: 2.2rem; margin-bottom: 10px; text-align: center; line-height: 1.2; }
         h2 { border-left: 5px solid var(--gold); padding-left: 15px; margin: 25px 0; font-size: 1.6rem; }
@@ -62,8 +58,6 @@
     
     <div class="viewport" id="view">
         <div class="page active" id="p-capa">
-            <div class="img-container"><img src="mentora.jpg" class="img-capa"></div>
-            <p style="text-align:center; font-weight:bold; color:var(--gold); letter-spacing: 2px;">E-BOOK</p>
             <h1>CÉREBRO, EMOÇÕES E FÉ</h1>
             <p style="text-align:center">Como desenvolver inteligência emocional com base científica e princípios bíblicos</p>
             <button class="btn btn-gold" onclick="goTo('p-index')">Abrir Sumário</button>
@@ -81,6 +75,10 @@
             <div class="index-item" onclick="goTo('p-ch8')">8. Sobre a autora</div>
             
             <div id="challenge-list" style="margin-top:20px; border-top: 2px solid #eee; padding-top:10px;"></div>
+            
+            <div id="challenge-btn-index" class="index-item" onclick="resumeChallenge()" style="color:var(--gold); font-weight:bold; border-top: 2px solid #eee; margin-top: 15px; padding-top: 15px;">
+                ➔ CONTINUAR JORNADA 21 DIAS
+            </div>
             
             <button class="btn btn-reset" onclick="resetProgress()">REINICIAR TUDO</button>
         </div>
@@ -154,6 +152,8 @@
         <div id="p-ch8" class="page">
             <h2>8. SOBRE A AUTORA</h2>
             <p><strong>Joyce Genova</strong> é Head Trainer, Master Coach, Rebirther e Heart Coherencer. Especialista em desenvolvimento emocional feminino, dedica-se a ajudar mulheres a curarem traumas e promover equilíbrio entre corpo, alma e espírito.</p>
+            <button class="btn btn-next" style="width:100%; background: var(--gold);" onclick="resumeChallenge()">Ir para a Jornada 21 Dias</button>
+        </div>
 
         <div id="challenge-content"></div>
     </div>
@@ -204,7 +204,7 @@
             </p>
             <div class="challenge-box">
                 <p><strong>Desafio:</strong> ${item.d}</p>
-                <textarea id="text-day-${i}" oninput="saveData(${i})" placeholder="Sua reflexão..."></textarea>
+                <textarea id="text-day-${i}" oninput="saveData(${i})" placeholder="Reflexão..."></textarea>
                 <div id="status-${i}"></div>
                 <button class="btn btn-gold" id="btn-day-${i}" onclick="completeDay(${i})">Concluir Dia ${i}</button>
             </div>
@@ -214,11 +214,13 @@
 
     function goTo(id) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
+        const target = document.getElementById(id);
+        if(target) target.classList.add('active');
         document.getElementById('view').scrollTop = 0;
-        
+
         const isChallenge = id.startsWith('day-');
         document.getElementById('nav-controls').style.display = (isChallenge || id.startsWith('p-ch')) ? 'flex' : 'none';
+        
         if(isChallenge) {
             let n = id.split('-')[1];
             document.getElementById('pCount').innerText = `Dia ${n} / 21`;
@@ -226,9 +228,27 @@
         }
     }
 
+    // CORREÇÃO 2: Adicionei esta função que o botão chamava mas não existia
+    function resumeChallenge() {
+        let current = localStorage.getItem('joyce_unlocked_day') || 1;
+        goTo('day-' + current);
+    }
+
+    function checkLogin() {
+        if(document.getElementById('passInput').value === SENHA_MESTRA) {
+            localStorage.setItem('joyce_auth', 'true');
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('workbook').style.visibility = 'visible';
+            renderIndex();
+        } else { alert("Senha incorreta!"); }
+    }
+
     function renderIndex() {
+        // Agora esta função vai encontrar a div correta
         const list = document.getElementById('challenge-list');
+        if(!list) return; // Segurança extra
         list.innerHTML = '<h3 style="color:var(--gold)">Jornada 21 Dias</h3>';
+        
         let lastDate = localStorage.getItem('joyce_date');
         let unlockedDay = parseInt(localStorage.getItem('joyce_unlocked_day')) || 1;
         let today = new Date().toDateString();
@@ -236,6 +256,7 @@
         conteudos.forEach((item, index) => {
             let d = index + 1;
             let div = document.createElement('div');
+            
             if (d < unlockedDay) {
                 div.className = 'index-item';
                 div.innerHTML = `✅ Dia ${d}: ${item.t}`;
@@ -244,7 +265,7 @@
                 if (lastDate === today) {
                     div.className = 'index-item locked-item';
                     div.innerHTML = `⏳ Dia ${d}: (Disponível amanhã)`;
-                    div.onclick = () => alert("Um passo por dia! Volte amanhã para continuar.");
+                    div.onclick = () => alert("Volte amanhã para continuar!");
                 } else {
                     div.className = 'index-item';
                     div.innerHTML = `🎯 Dia ${d}: ${item.t}`;
@@ -259,39 +280,47 @@
     }
 
     function completeDay(d) {
-        if(document.getElementById('text-day-' + d).value.length < 5) return alert("Escreva algo antes de concluir!");
-        localStorage.setItem('joyce_date', new Date().toDateString());
-        let current = parseInt(localStorage.getItem('joyce_unlocked_day')) || 1;
-        if(d === current) localStorage.setItem('joyce_unlocked_day', current + 1);
+        let txt = document.getElementById('text-day-' + d).value;
+        if(txt.length < 5) return alert("Escreva algo antes de concluir.");
+
+        let today = new Date().toDateString();
+        localStorage.setItem('joyce_date', today);
+        
+        let currentUnlocked = parseInt(localStorage.getItem('joyce_unlocked_day')) || 1;
+        if(d === currentUnlocked) {
+            localStorage.setItem('joyce_unlocked_day', currentUnlocked + 1);
+        }
+
         renderIndex();
         goTo('p-index');
     }
 
     function checkLockState(d) {
-        let isDoneToday = localStorage.getItem('joyce_date') === new Date().toDateString();
-        let unlocked = parseInt(localStorage.getItem('joyce_unlocked_day')) || 1;
-        let btn = document.getElementById('btn-day-' + d);
-        let status = document.getElementById('status-' + d);
-        if(parseInt(d) < unlocked || (isDoneToday && parseInt(d) === unlocked)) {
-            btn.style.display = 'none';
-            status.innerHTML = "<p style='color:var(--gold); font-weight:bold;'>✨ Concluído!</p>";
+        let lastDate = localStorage.getItem('joyce_date');
+        let today = new Date().toDateString();
+        let currentUnlocked = parseInt(localStorage.getItem('joyce_unlocked_day')) || 1;
+
+        if(parseInt(d) < currentUnlocked || (lastDate === today && parseInt(d) === currentUnlocked)) {
+            let btn = document.getElementById('btn-day-' + d);
+            if(btn) btn.style.display = 'none';
+            document.getElementById('status-' + d).innerHTML = "<p style='color:var(--gold); font-weight:bold;'>✨ Concluído!</p>";
         } else {
-            btn.style.display = 'block';
-            status.innerHTML = "";
+            let btn = document.getElementById('btn-day-' + d);
+            if(btn) btn.style.display = 'block';
+            document.getElementById('status-' + d).innerHTML = "";
         }
     }
 
-    function checkLogin() {
-        if(document.getElementById('passInput').value === SENHA_MESTRA) {
-            localStorage.setItem('joyce_auth', 'true');
-            document.getElementById('login-screen').style.display = 'none';
-            document.getElementById('workbook').style.visibility = 'visible';
-            renderIndex();
-        } else alert("Senha incorreta!");
+    function saveData(d) {
+        localStorage.setItem('joyce_txt_' + d, document.getElementById('text-day-' + d).value);
     }
 
-    function saveData(d) { localStorage.setItem('joyce_txt_' + i, document.getElementById('text-day-' + d).value); }
-    function resetProgress() { if(confirm("Reiniciar tudo?")) { localStorage.clear(); location.reload(); } }
+    function resetProgress() {
+        if(confirm("Começar do zero?")) {
+            localStorage.clear();
+            location.reload();
+        }
+    }
 
     window.onload = () => {
         if(localStorage.getItem('joyce_auth') === 'true') {
@@ -301,10 +330,8 @@
         }
         for(let i=1; i<=21; i++) {
             let s = localStorage.getItem('joyce_txt_' + i);
-            if(s) {
-                let el = document.getElementById('text-day-' + i);
-                if(el) el.value = s;
-            }
+            let el = document.getElementById('text-day-' + i);
+            if(s && el) el.value = s;
         }
     };
 </script>
