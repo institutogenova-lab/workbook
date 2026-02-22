@@ -28,7 +28,7 @@
         h2 { border-left: 5px solid var(--gold); padding-left: 15px; margin: 25px 0; font-size: 1.6rem; }
         p { line-height: 1.8; font-size: 1.1rem; color: var(--text); margin-bottom: 15px; }
         
-        .bible-quote { background: #f1f5f9; padding: 25px; border-radius: 10px; border-left: 5px solid var(--gold); font-style: italic; margin: 25px 0; }
+        .bible-quote { background: #f1f5f9; padding: 25px; border-radius: 10px; border-left: 5px solid var(--gold); font-style: italic; margin: 25px 0; text-align: center; }
         .challenge-box { background: #fffcf0; border: 2px solid #f3e8c1; padding: 25px; border-radius: 15px; margin-top: 30px; }
         textarea { width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 10px; margin: 15px 0; font-family: inherit; font-size: 1rem; resize: none; background: #fff; height: 120px; }
         
@@ -41,6 +41,18 @@
 
         .index-item { cursor: pointer; padding: 12px 0; border-bottom: 1px solid #f1f5f9; color: var(--text); }
         .locked-item { color: #ccc; cursor: not-allowed; font-style: italic; }
+
+        /* Estilos de Imagem */
+        .img-capa { width: 100%; max-width: 320px; display: block; margin: 0 auto 20px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .img-autora { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; display: block; margin: 0 auto 20px; border: 3px solid var(--gold); }
+        .img-selo { width: 120px; display: block; margin: 0 auto 10px; }
+        .img-final-joyce { width: 100%; max-width: 400px; border-radius: 15px; display: block; margin: 20px auto; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+
+        @media print {
+            .controls, button, #login-screen { display: none !important; }
+            #workbook { box-shadow: none; height: auto; }
+            .viewport { overflow: visible; }
+        }
     </style>
 </head>
 <body>
@@ -57,9 +69,11 @@
     <div class="progress-bar"><div id="fill"></div></div>
     
     <div class="viewport" id="view">
+        
         <div class="page active" id="p-capa">
+            <img src="capa.png" class="img-capa" alt="Capa">
             <h1>CÉREBRO, EMOÇÕES E FÉ</h1>
-            <p style="text-align:center">Como desenvolver inteligência emocional com base científica e princípios bíblicos</p>
+            <p style="text-align:center; font-weight: 300;">Como desenvolver inteligência emocional com base científica e princípios bíblicos</p>
             <button class="btn btn-gold" onclick="goTo('p-index')">Abrir Sumário</button>
         </div>
 
@@ -76,7 +90,7 @@
             
             <div id="challenge-list" style="margin-top:20px; border-top: 2px solid #eee; padding-top:10px;"></div>
             
-            <div id="challenge-btn-index" class="index-item" onclick="resumeChallenge()" style="color:var(--gold); font-weight:bold; border-top: 2px solid #eee; margin-top: 15px; padding-top: 15px;">
+            <div id="challenge-btn-index" class="index-item" onclick="resumeChallenge()" style="color:var(--gold); font-weight:bold; border-top: 2px solid #eee; margin-top: 15px; padding-top: 15px; text-align: center;">
                 ➔ CONTINUAR JORNADA 21 DIAS
             </div>
             
@@ -151,8 +165,24 @@
 
         <div id="p-ch8" class="page">
             <h2>8. SOBRE A AUTORA</h2>
+            <img src="autora.png" class="img-autora" alt="Joyce Genova">
             <p><strong>Joyce Genova</strong> é Head Trainer, Master Coach, Rebirther e Heart Coherencer. Especialista em desenvolvimento emocional feminino, dedica-se a ajudar mulheres a curarem traumas e promover equilíbrio entre corpo, alma e espírito.</p>
             <button class="btn btn-next" style="width:100%; background: var(--gold);" onclick="resumeChallenge()">Ir para a Jornada 21 Dias</button>
+        </div>
+
+        <div id="p-final" class="page">
+            <img src="final-selo.png" class="img-selo" alt="Selo de Conclusão">
+            <h1 style="color: var(--gold); text-align: center;">JORNADA CONCLUÍDA!</h1>
+            
+            <img src="final-joyce.jpg" class="img-final-joyce" alt="Joyce Genova Sorrindo">
+            
+            <p>Você conseguiu! Durante estes 21 dias, você treinou seu cérebro e fortaleceu suas emoções sob a luz da fé.</p>
+            <p>Lembre-se: a transformação não termina aqui. A inteligência emocional é um exercício diário. Continue guardando seu coração e renovando sua mente.</p>
+            
+            <div class="bible-quote">“Combati o bom combate, acabei a carreira, guardei a fé.” — 2 Timóteo 4:7</div>
+            
+            <button class="btn btn-gold" style="width: 100%;" onclick="window.print()">Salvar/Imprimir meu Diário</button>
+            <button class="btn btn-prev" style="width: 100%; margin-top: 10px;" onclick="goTo('p-index')">Voltar ao Menu</button>
         </div>
 
         <div id="challenge-content"></div>
@@ -160,13 +190,12 @@
 
     <div class="controls" id="nav-controls" style="display:none;">
         <button class="btn btn-prev" onclick="goTo('p-index')">Menu</button>
-        <span id="pCount" style="font-weight: bold;"></span>
+        <span id="pCount"></span>
     </div>
 </div>
 
 <script>
     const SENHA_MESTRA = "EbookCEF";
-
     const conteudos = [
         { t: "Neuroplasticidade", c: "Seu cérebro não é fixo. Pensamentos novos criam trilhas físicas.", d: "Escreva uma crença limitante e transforme-a em afirmação lógica." },
         { t: "O Sequestro da Amígdala", c: "O segredo para vencer o impulso é a pausa.", d: "Descreva uma situação onde a emoção venceu a razão recentemente." },
@@ -195,20 +224,11 @@
     conteudos.forEach((item, index) => {
         let i = index + 1;
         let div = document.createElement('div');
-        div.id = 'day-' + i;
-        div.className = 'page';
-        div.innerHTML = `
-            <h2>Dia ${i}: ${item.t}</h2>
-            <p style="background: #eef2f7; padding: 15px; border-radius: 10px; border-left: 4px solid var(--navy);">
-                <strong>Conceito:</strong> ${item.c}
-            </p>
-            <div class="challenge-box">
-                <p><strong>Desafio:</strong> ${item.d}</p>
-                <textarea id="text-day-${i}" oninput="saveData(${i})" placeholder="Reflexão..."></textarea>
-                <div id="status-${i}"></div>
-                <button class="btn btn-gold" id="btn-day-${i}" onclick="completeDay(${i})">Concluir Dia ${i}</button>
-            </div>
-        `;
+        div.id = 'day-' + i; div.className = 'page';
+        div.innerHTML = `<h2>Dia ${i}: ${item.t}</h2><p><strong>Conceito:</strong> ${item.c}</p>
+            <div class="challenge-box"><p><strong>Desafio:</strong> ${item.d}</p>
+            <textarea id="text-day-${i}" oninput="saveData(${i})" placeholder="Minha reflexão..."></textarea>
+            <div id="status-${i}"></div><button class="btn btn-gold" id="btn-day-${i}" onclick="completeDay(${i})">Concluir Dia ${i}</button></div>`;
         container.appendChild(div);
     });
 
@@ -217,21 +237,16 @@
         const target = document.getElementById(id);
         if(target) target.classList.add('active');
         document.getElementById('view').scrollTop = 0;
-
         const isChallenge = id.startsWith('day-');
-        document.getElementById('nav-controls').style.display = (isChallenge || id.startsWith('p-ch')) ? 'flex' : 'none';
-        
+        document.getElementById('nav-controls').style.display = (isChallenge || id.startsWith('p-ch') || id === 'p-final') ? 'flex' : 'none';
         if(isChallenge) {
-            let n = id.split('-')[1];
-            document.getElementById('pCount').innerText = `Dia ${n} / 21`;
-            checkLockState(n);
-        }
+            let n = id.split('-')[1]; document.getElementById('pCount').innerText = `Dia ${n} / 21`; checkLockState(n);
+        } else if(id === 'p-final') { document.getElementById('pCount').innerText = "Concluído"; }
     }
 
-    // CORREÇÃO 2: Adicionei esta função que o botão chamava mas não existia
     function resumeChallenge() {
-        let current = localStorage.getItem('joyce_unlocked_day') || 1;
-        goTo('day-' + current);
+        let current = parseInt(localStorage.getItem('joyce_unlocked_day')) || 1;
+        if(current > 21) goTo('p-final'); else goTo('day-' + current);
     }
 
     function checkLogin() {
@@ -240,87 +255,43 @@
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('workbook').style.visibility = 'visible';
             renderIndex();
-        } else { alert("Senha incorreta!"); }
+        } else alert("Senha incorreta!");
     }
 
     function renderIndex() {
-        // Agora esta função vai encontrar a div correta
-        const list = document.getElementById('challenge-list');
-        if(!list) return; // Segurança extra
+        const list = document.getElementById('challenge-list'); if(!list) return;
         list.innerHTML = '<h3 style="color:var(--gold)">Jornada 21 Dias</h3>';
-        
-        let lastDate = localStorage.getItem('joyce_date');
-        let unlockedDay = parseInt(localStorage.getItem('joyce_unlocked_day')) || 1;
-        let today = new Date().toDateString();
-
+        let lastDate = localStorage.getItem('joyce_date'), unlockedDay = parseInt(localStorage.getItem('joyce_unlocked_day')) || 1, today = new Date().toDateString();
+        document.getElementById('challenge-btn-index').innerHTML = (unlockedDay > 21) ? "➔ VER MENSAGEM FINAL" : "➔ CONTINUAR JORNADA 21 DIAS";
         conteudos.forEach((item, index) => {
-            let d = index + 1;
-            let div = document.createElement('div');
-            
-            if (d < unlockedDay) {
-                div.className = 'index-item';
-                div.innerHTML = `✅ Dia ${d}: ${item.t}`;
-                div.onclick = () => goTo('day-' + d);
-            } else if (d === unlockedDay) {
-                if (lastDate === today) {
-                    div.className = 'index-item locked-item';
-                    div.innerHTML = `⏳ Dia ${d}: (Disponível amanhã)`;
-                    div.onclick = () => alert("Volte amanhã para continuar!");
-                } else {
-                    div.className = 'index-item';
-                    div.innerHTML = `🎯 Dia ${d}: ${item.t}`;
-                    div.onclick = () => goTo('day-' + d);
-                }
-            } else {
-                div.className = 'index-item locked-item';
-                div.innerHTML = `🔒 Dia ${d}: Bloqueado`;
-            }
+            let d = index + 1, div = document.createElement('div');
+            if(d < unlockedDay) { div.className = 'index-item'; div.innerHTML = `✅ Dia ${d}: ${item.t}`; div.onclick = () => goTo('day-'+d); }
+            else if(d === unlockedDay) {
+                if(lastDate === today) { div.className = 'index-item locked-item'; div.innerHTML = `⏳ Dia ${d}: (Amanhã)`; div.onclick = () => alert("Volte amanhã!"); }
+                else { div.className = 'index-item'; div.innerHTML = `🎯 Dia ${d}: ${item.t}`; div.onclick = () => goTo('day-'+d); }
+            } else { div.className = 'index-item locked-item'; div.innerHTML = `🔒 Dia ${d}: Bloqueado`; }
             list.appendChild(div);
         });
     }
 
     function completeDay(d) {
-        let txt = document.getElementById('text-day-' + d).value;
-        if(txt.length < 5) return alert("Escreva algo antes de concluir.");
-
-        let today = new Date().toDateString();
-        localStorage.setItem('joyce_date', today);
-        
-        let currentUnlocked = parseInt(localStorage.getItem('joyce_unlocked_day')) || 1;
-        if(d === currentUnlocked) {
-            localStorage.setItem('joyce_unlocked_day', currentUnlocked + 1);
-        }
-
+        if(document.getElementById('text-day-'+d).value.length < 5) return alert("Escreva sua reflexão!");
+        localStorage.setItem('joyce_date', new Date().toDateString());
+        let current = parseInt(localStorage.getItem('joyce_unlocked_day')) || 1;
+        if(d === current) localStorage.setItem('joyce_unlocked_day', current + 1);
         renderIndex();
-        goTo('p-index');
+        if(d === 21) goTo('p-final'); else goTo('p-index');
     }
 
     function checkLockState(d) {
-        let lastDate = localStorage.getItem('joyce_date');
-        let today = new Date().toDateString();
-        let currentUnlocked = parseInt(localStorage.getItem('joyce_unlocked_day')) || 1;
-
-        if(parseInt(d) < currentUnlocked || (lastDate === today && parseInt(d) === currentUnlocked)) {
-            let btn = document.getElementById('btn-day-' + d);
-            if(btn) btn.style.display = 'none';
-            document.getElementById('status-' + d).innerHTML = "<p style='color:var(--gold); font-weight:bold;'>✨ Concluído!</p>";
-        } else {
-            let btn = document.getElementById('btn-day-' + d);
-            if(btn) btn.style.display = 'block';
-            document.getElementById('status-' + d).innerHTML = "";
-        }
+        let lastDate = localStorage.getItem('joyce_date'), today = new Date().toDateString(), current = parseInt(localStorage.getItem('joyce_unlocked_day')) || 1;
+        let isDone = (parseInt(d) < current || (lastDate === today && parseInt(d) === current));
+        document.getElementById('btn-day-'+d).style.display = isDone ? 'none' : 'block';
+        document.getElementById('status-'+d).innerHTML = isDone ? "<p style='color:var(--gold); font-weight:bold;'>✨ Concluído!</p>" : "";
     }
 
-    function saveData(d) {
-        localStorage.setItem('joyce_txt_' + d, document.getElementById('text-day-' + d).value);
-    }
-
-    function resetProgress() {
-        if(confirm("Começar do zero?")) {
-            localStorage.clear();
-            location.reload();
-        }
-    }
+    function saveData(d) { localStorage.setItem('joyce_txt_'+d, document.getElementById('text-day-'+d).value); }
+    function resetProgress() { if(confirm("Reiniciar tudo?")) { localStorage.clear(); location.reload(); } }
 
     window.onload = () => {
         if(localStorage.getItem('joyce_auth') === 'true') {
@@ -329,9 +300,8 @@
             renderIndex();
         }
         for(let i=1; i<=21; i++) {
-            let s = localStorage.getItem('joyce_txt_' + i);
-            let el = document.getElementById('text-day-' + i);
-            if(s && el) el.value = s;
+            let s = localStorage.getItem('joyce_txt_'+i);
+            if(s && document.getElementById('text-day-'+i)) document.getElementById('text-day-'+i).value = s;
         }
     };
 </script>
