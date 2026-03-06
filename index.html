@@ -6,7 +6,7 @@
     <title>Cérebro, Emoções e Fé - Joyce Genova</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
-        :root { --navy: #0f172a; --gold: #b8924a; --white: #ffffff; --bg: #f8fafc; --text: #334155; }
+        :root { --navy: #0f172a; --gold: #b8924a; --white: #ffffff; --bg: #f8fafc; --text: #334155; --whatsapp: #25d366; }
         * { box-sizing: border-box; }
         body { font-family: 'Montserrat', sans-serif; background: var(--bg); margin: 0; display: flex; justify-content: center; height: 100vh; overflow: hidden; }
         
@@ -33,23 +33,21 @@
         textarea { width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 10px; margin: 15px 0; font-family: inherit; font-size: 1rem; resize: none; background: #fff; height: 120px; }
         
         .controls { padding: 20px 50px; background: #fff; border-top: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
-        .btn { padding: 12px 25px; border-radius: 50px; border: none; cursor: pointer; font-weight: 700; transition: 0.3s; text-transform: uppercase; font-size: 0.85rem; }
+        .btn { padding: 12px 25px; border-radius: 50px; border: none; cursor: pointer; font-weight: 700; transition: 0.3s; text-transform: uppercase; font-size: 0.85rem; display: block; text-align: center; text-decoration: none; }
         .btn-next { background: var(--navy); color: white; }
         .btn-prev { background: #cbd5e1; color: var(--navy); }
         .btn-gold { background: var(--gold); color: white; width: 100%; margin-top: 10px; }
+        .btn-whatsapp { background: var(--whatsapp); color: white; width: 100%; margin-top: 10px; border: none; }
         .btn-reset { background: transparent; color: #94a3b8; border: 1px solid #e2e8f0; font-size: 0.7rem; margin-top: 50px; cursor: pointer; width: 100%; padding: 10px; }
 
         .index-item { cursor: pointer; padding: 12px 0; border-bottom: 1px solid #f1f5f9; color: var(--text); }
         .locked-item { color: #ccc; cursor: not-allowed; font-style: italic; }
 
-        /* Estilos de Imagem */
         .img-capa { width: 100%; max-width: 320px; display: block; margin: 0 auto 20px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
         .img-autora { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; display: block; margin: 0 auto 20px; border: 3px solid var(--gold); }
-        .img-selo { width: 120px; display: block; margin: 0 auto 10px; }
-        .img-final-joyce { width: 100%; max-width: 400px; border-radius: 15px; display: block; margin: 20px auto; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
 
         @media print {
-            .controls, button, #login-screen { display: none !important; }
+            .controls, button, .btn, #login-screen { display: none !important; }
             #workbook { box-shadow: none; height: auto; }
             .viewport { overflow: visible; }
         }
@@ -61,7 +59,7 @@
     <div class="login-box">
         <h2 style="color: var(--gold); border:none;">Acesso Restrito</h2>
         <input type="password" id="passInput" class="login-input" placeholder="Digite a senha">
-        <button class="btn btn-gold" onclick="checkLogin()">Entrar</button>
+        <button class="btn btn-gold" onclick="checkLogin()" style="width: 100%;">Entrar</button>
     </div>
 </div>
 
@@ -89,6 +87,37 @@
             <div class="index-item" onclick="goTo('p-ch6')">8. Plano prático de aplicação</div>
             <div class="index-item" onclick="goTo('p-ch7')">9. Considerações finais</div>
             <div class="index-item" onclick="goTo('p-ch8')">10. Sobre a autora</div>
+           <div id="p-mapa" class="page">
+               
+    <h2>📍 POR QUE ESTA JORNADA EXISTE?</h2>
+    <p>Muitas vezes lemos um conteúdo, achamos interessante, mas não mudamos nada na nossa vida. O conhecimento sem aplicação é apenas informação; **o conhecimento com aplicação é transformação.**</p>
+    
+    <div class="challenge-box" style="border-color: var(--gold); background: #fefcf5;">
+        <p><strong>A Jornada de 21 Dias existe para:</strong></p>
+        <ul style="font-size: 1rem; line-height: 1.6;">
+            <li><strong>Criar Consistência:</strong> O cérebro precisa de repetição para criar novas vias neurais.</li>
+            <li><strong>Unir Teoria e Prática:</strong> Cada desafio foi desenhado com base em um capítulo específico deste livro.</li>
+            <li><strong>Gerar Evidências:</strong> Ao escrever suas reflexões, você prova para sua mente que a mudança está acontecendo.</li>
+        </ul>
+    </div>
+
+    <h3>Mapeamento Científico:</h3>
+    <table style="width:100%; font-size: 0.85rem; border-collapse: collapse; margin-top: 10px;">
+        <tr style="background: var(--navy); color: white;">
+            <th style="padding: 8px; border: 1px solid #ddd;">Dias</th>
+            <th style="padding: 8px; border: 1px solid #ddd;">Capítulo Base</th>
+        </tr>
+        <tr><td style="padding: 8px; border: 1px solid #ddd;">1, 10, 19</td><td style="padding: 8px; border: 1px solid #ddd;">Cap. 6 (Crenças)</td></tr>
+        <tr><td style="padding: 8px; border: 1px solid #ddd;">2, 11, 12</td><td style="padding: 8px; border: 1px solid #ddd;">Cap. 2 (Cérebro e Emoção)</td></tr>
+        <tr><td style="padding: 8px; border: 1px solid #ddd;">3, 5, 6</td><td style="padding: 8px; border: 1px solid #ddd;">Cap. 3 (Hábitos)</td></tr>
+        <tr><td style="padding: 8px; border: 1px solid #ddd;">4, 8, 9, 14</td><td style="padding: 8px; border: 1px solid #ddd;">Cap. 5 (Estresse)</td></tr>
+        <tr><td style="padding: 8px; border: 1px solid #ddd;">7</td><td style="padding: 8px; border: 1px solid #ddd;">Cap. 4 (Decisão)</td></tr>
+        <tr><td style="padding: 8px; border: 1px solid #ddd;">13, 17, 20</td><td style="padding: 8px; border: 1px solid #ddd;">Cap. 7 (Padrões)</td></tr>
+        <tr><td style="padding: 8px; border: 1px solid #ddd;">15, 18</td><td style="padding: 8px; border: 1px solid #ddd;">Cap. 8 (Plano Prático)</td></tr>
+    </table>
+
+    <button class="btn btn-gold" style="margin-top: 25px;" onclick="goTo('p-index')">Entendi e quero começar!</button>
+</div> 
             
             <div id="challenge-list" style="margin-top:20px; border-top: 2px solid #eee; padding-top:10px;"></div>
             
@@ -96,131 +125,133 @@
         </div>
 
         <div id="p-ch1" class="page">
-            <h2>1. INTRODUÇÃO</h2>
-            <p>Durante muitos anos acreditou-se que ser emocional era sinal de fraqueza. Hoje a neurociência mostra o contrário. Emoção não é o oposto da razão. Emoção é parte da inteligência.</p>
-            <p>Estudos sobre inteligência emocional, especialmente os desenvolvidos por Daniel Goleman, mostram que pessoas emocionalmente inteligentes tomam decisões melhores, constroem relacionamentos mais saudáveis e têm maior equilíbrio diante da pressão.</p>
-            <p>Mas a ciência não anda sozinha. A Bíblia já apontava princípios emocionais muito antes da neurociência explicar o funcionamento do cérebro.</p>
-            <div class="bible-quote">“Sobre tudo o que se deve guardar, guarda o teu coração, porque dele procedem as fontes da vida.” — Provérbios 4:23</div>
-            <p>Este e-book une ciência, prática profissional e fundamentos bíblicos para te ajudar a compreender como suas emoções funcionam e como desenvolver autocontrole e maturidade emocional.</p>
+            <h2>1. INTRODUÇÃO: A CIÊNCIA DA TRANSFORMAÇÃO</h2>
+            <p>Durante séculos, fomos ensinados que a razão e a emoção eram inimigas. A ciência moderna, porém, revela que elas são faces da mesma moeda. Sem emoção, não conseguimos tomar decisões simples; sem razão, não conseguimos direcionar nossa força vital.</p>
+            <p>A <strong>Inteligência Emocional</strong> não é sobre reprimir o que você sente, mas sobre traduzir a mensagem que a emoção está trazendo. No nível cerebral, isso significa fortalecer a comunicação entre o seu sistema límbico e o seu córtex pré-frontal.</p>
+            <div class="bible-quote">“Pois Deus não nos deu um espírito de timidez, mas de fortaleza, de amor e de moderação.” — 2 Timóteo 1:7</div>
             <button class="btn btn-next" style="width:100%" onclick="goTo('p-ch2')">Próximo Capítulo</button>
         </div>
 
         <div id="p-ch2" class="page">
-            <h2>2. EMOÇÕES E O CÉREBRO: ENTRE A RAZÃO E O INSTINTO</h2>
-            <p>Nosso cérebro possui sistemas que trabalham quase como dois modos internos:</p>
-            <ul>
-                <li>Sistema emocional, rápido e instintivo</li>
-                <li>Sistema racional, analítico e reflexivo</li>
-            </ul>
-            <p>A amígdala cerebral é responsável pelas respostas emocionais imediatas, especialmente medo e defesa. Já o córtex pré-frontal é responsável por análise, planejamento e autocontrole.</p>
-            <p>Quando reagimos impulsivamente, geralmente a amígdala assumiu o controle antes que o córtex pré-frontal pudesse avaliar a situação. Daniel Goleman chama isso de “sequestro emocional”.</p>
-            <div class="bible-quote">“Todo homem seja pronto para ouvir, tardio para falar, tardio para se irar.” — Tiago 1:19</div>
+            <h2>2. O SEQUESTRO DA AMÍGDALA E A PAUSA ESTRATÉGICA</h2>
+            <p>A <strong>Amígdala</strong> é o centro de alarme do seu cérebro. Diante de um estresse ou crítica, ela dispara uma reação de "luta ou fuga" em milissegundos. É aqui que ocorre o "sequestro emocional": você age por impulso e se arrepende depois.</p>
+            <p>O <strong>Córtex Pré-Frontal</strong> é a sua parte executiva, responsável pelo julgamento e lógica. O amadurecimento emocional consiste em criar uma "janela de tempo" entre o estímulo (o que acontece com você) e a resposta (como você reage). Essa pausa é o que a Bíblia chama de domínio próprio.</p>
+            
+            <div class="bible-quote">“O homem que não sabe dominar-se é como uma cidade escancarada, sem muralhas.” — Provérbios 25:28</div>
             <button class="btn btn-next" style="width:100%" onclick="goTo('p-ch3')">Próximo Capítulo</button>
         </div>
 
         <div id="p-ch3" class="page">
-            <h2>3. HÁBITOS E RECOMPENSAS: POR QUE REPETIMOS O QUE FAZEMOS</h2>
-            <p>O cérebro funciona por economia de energia. Ele transforma comportamentos repetidos em hábitos para poupar esforço mental. Todo hábito tem três etapas: Gatilho, Rotina e Recompensa.</p>
-            <p>Quando algo gera sensação de alívio ou prazer, o cérebro libera dopamina. Ele aprende que aquilo é “bom” e tenta repetir. Não é fraqueza moral. É circuito neural consolidado.</p>
-            <div class="bible-quote">“Não vos conformeis com este século, mas transformai-vos pela renovação da vossa mente.” — Romanos 12:2</div>
+            <h2>3. HÁBITOS: A PLASTICIDADE DO CÉREBRO</h2>
+            <p>O cérebro ama economizar energia. Por isso, ele transforma comportamentos repetitivos em hábitos automáticos através da <strong>Mielinização</strong>. Quanto mais você repete um comportamento, mais forte e rápida fica essa via neural.</p>
+            <p>Para mudar um hábito ruim, não basta força de vontade; é preciso alterar a <strong>Alça do Hábito</strong>: identificar o Gatilho (o que inicia), mudar a Rotina (o que você faz) e manter a Recompensa (o prazer que o cérebro busca). A neuroplasticidade prova que você pode "reprogramar" seu cérebro em qualquer idade.</p>
+            
+            <div class="bible-quote">“E não vos conformeis com este mundo, mas transformai-vos pela renovação da vossa mente.” — Romanos 12:2</div>
             <button class="btn btn-next" style="width:100%" onclick="goTo('p-ch4')">Próximo Capítulo</button>
         </div>
 
         <div id="p-ch4" class="page">
-            <h2>4. TOMADA DE DECISÃO: EMOÇÃO OU LÓGICA</h2>
-            <p>A ciência comprova: Pessoas que não sentem emoções por lesões cerebrais têm grande dificuldade de tomar decisões. Emoção é parte essencial da escolha.</p>
-            <p>Decisão equilibrada não é emoção contra lógica. É integração.</p>
-            <div class="bible-quote">“Confia ao Senhor as tuas obras, e teus planos serão estabelecidos.” — Provérbios 16:3</div>
-            <p>Tomar decisão saudável envolve: Reconhecer o que você está sentindo, avaliar os fatos, considerar consequências e alinhar com seus valores.</p>
+            <h2>4. DECISÃO: VALORES E MARCADORES SOMÁTICOS</h2>
+            <p>O neurocientista António Damásio descobriu que pessoas com danos nas áreas emocionais do cérebro não conseguem decidir nada. Isso porque usamos "marcadores somáticos" — sensações físicas enviadas pelo corpo para nos guiar.</p>
+            <p>Decisões sábias ocorrem quando alinhamos esses sinais internos com nossos <strong>Valores Inegociáveis</strong>. Quando você decide contra seus valores, gera um conflito interno que consome energia mental e causa ansiedade crônica.</p>
+            <div class="bible-quote">“Onde não há conselho os projetos fracassam, mas com muitos conselheiros há sucesso.” — Provérbios 15:22</div>
             <button class="btn btn-next" style="width:100%" onclick="goTo('p-ch5')">Próximo Capítulo</button>
         </div>
 
         <div id="p-ch5" class="page">
-            <h2>5. CÉREBRO, ESTRESSE E AUTOCONTROLE</h2>
-            <p>Sob estresse, o cérebro libera cortisol. Se o estresse se torna crônico, reduz a capacidade de autocontrole. O autocontrole não é apenas espiritual, ele também é fisiológico.</p>
-            <div class="bible-quote">“Porque Deus não nos deu espírito de medo, mas de poder, amor e equilíbrio.” — 2 Timóteo 1:7</div>
-            <p>Práticas como respiração consciente, oração e escrita emocional ajudam a regular o sistema nervoso.</p>
+            <h2>5. CORTISOL E O CUSTO DO ESTRESSE</h2>
+            <p>O estresse crônico inunda o corpo com <strong>Cortisol</strong>. Em pequenas doses, ele nos salva; em excesso, ele "atrofia" o hipocampo (memória) e inflama o corpo. A ansiedade é, muitas vezes, o cérebro tentando prever o futuro baseado em medos do passado.</p>
+            <p>A prática da gratidão e da oração ativa o sistema parassimpático, liberando <strong>Ocitocina</strong> e <strong>GABA</strong>, que são os calmantes naturais do cérebro. Equilibrar sua química interna é um ato de mordomia com o templo que é o seu corpo.</p>
+            
+
+[Image of the hypothalamic-pituitary-adrenal axis showing cortisol release]
+
+            <div class="bible-quote">“Não andeis ansiosos por coisa alguma; antes em tudo sejam os vossos pedidos conhecidos diante de Deus pela oração.” — Filipenses 4:6</div>
             <button class="btn btn-next" style="width:100%" onclick="goTo('p-ch9')">Próximo Capítulo</button>
         </div>
 
         <div id="p-ch9" class="page">
-            <h2>6. O UNIVERSO DAS CRENÇAS: DEFINIÇÃO E ESTRUTURA</h2>
-            <p>As crenças são significados que atribuímos a fatos e a nós mesmos. Elas funcionam como "verdades" internas que determinam nosso comportamento.</p>
-            <p><strong>Os Três Pilares:</strong></p>
-            <ul>
-                <li><strong>Capacidade:</strong> O que acredito que consigo fazer.</li>
-                <li><strong>Possibilidade:</strong> O que acredito que é permitido acontecer.</li>
-                <li><strong>Merecimento:</strong> O que acredito que sou digno de receber.</li>
+            <h2>6. O UNIVERSO DAS CRENÇAS: A LENTE DA REALIDADE</h2>
+            <p>Crenças não são apenas opiniões; são <strong>programas neurais</strong> instalados em nosso sistema, geralmente na primeira infância. Elas funcionam como filtros: você não vê o mundo como ele é, mas como você <em>acredita</em> que ele seja.</p>
+            
+            <h3>Escassez e Dinheiro</h3>
+            <ul class="belief-list">
+                <li><b>"Dinheiro não traz felicidade"</b> Transforma a busca por prosperidade em algo negativo e culpado.</li>
+                <li><b>"Quem não nasce rico, provavelmente nunca será rico"</b> Gera desânimo e a ideia de que o sucesso financeiro é apenas sorte.</li>
+                <li><b>"É melhor ser pobre, mas honesto"</b> Associa riqueza à falta de caráter, criando medo de prosperar.</li>
+                <li><b>"O olho do dono é quem engorda o boi"</b> Limita o crescimento, sugerindo que só funciona se você fizer tudo sozinha.</li>
             </ul>
-            <div class="bible-quote">“Se podes crer, tudo é possível ao que crê.” — Marcos 9:23</div>
+
+            <h3>Medo e Insegurança</h3>
+            <ul class="belief-list">
+                <li><b>"Antes só do que mal acompanhado"</b> Frequentemente usada para evitar relacionamentos saudáveis por medo de se machucar.</li>
+                <li><b>"Água mole em pedra dura, tanto bate até que fura"</b> Pode incentivar a persistência, mas também a insistência em caminhos errados sem inovação.</li>
+                <li><b>"Quem cedo madruga, Deus ajuda"</b> Tenta colocar o sucesso apenas no esforço físico matinal, ignorando a inteligência estratégica.</li>
+            </ul>
+
+            <h3>Capacidade e Merecimento</h3>
+            <ul class="belief-list">
+                <li><b>"Isso não é para o meu bico"</b> Cria um sentimento imediato de inferioridade e incapacidade.</li>
+                <li><b>"Quem quer faz, quem não quer manda"</b> Gera sobrecarga por medo de delegar e aversão à liderança.</li>
+                <li><b>"Não sou bom o suficiente"</b> Fomenta uma insegurança crônica em todas as áreas.</li>
+                <li><b>"Nunca vão gostar de mim"</b> Limita drasticamente suas interações sociais e profissionais.</li>
+            </ul>
+
+            <p>O seu cérebro utiliza o <strong>Viés de Confirmação</strong> para buscar evidências que provem que suas crenças (mesmo as ruins) estão certas, criando um ciclo de auto-sabotagem.</p>
+            
+            <div class="challenge-box" style="background: #fffcf0; border: 1px solid #f3e8c1;">
+                <h3 style="font-size: 1.1rem; margin-top: 0;">A Tríade da Identidade</h3>
+                <p style="font-size: 0.95rem;">Toda crença limitante se encaixa em um destes pilares:</p>
+                <ul style="font-size: 1rem; line-height: 1.6;">
+                    <li><strong>Identidade (SER):</strong> "Eu sou inadequada", "Eu sou um erro". Define quem você pensa que é.</li>
+                    <li><strong>Capacidade (FAZER):</strong> "Eu não consigo", "Isso não é para mim". Define o que você acha que pode realizar.</li>
+                    <li><strong>Merecimento (TER):</strong> "Eu não sou digna de ser amada/próspera". Define o que você se permite receber.</li>
+                </ul>
+            </div>
+
+            <p style="margin-top: 15px;">Para mudar, é preciso desconstruir a mentira e renovar a mente com a Verdade.</p>
+            <div class="bible-quote">“Pois, como imaginou no seu coração, assim ele é.” — Provérbios 23:7</div>
             <button class="btn btn-next" style="width:100%" onclick="goTo('p-ch11')">Próximo Capítulo</button>
         </div>
 
         <div id="p-ch11" class="page">
-            <h2>7. A NATUREZA DOS PADRÕES DE COMPORTAMENTO</h2>
-            <p>Padrões de comportamento são respostas e reações automáticas que manifestamos. Na maioria das vezes, operam de forma inconsciente, moldando nossas escolhas sem que percebamos a origem.</p>
-            
-            <p><strong>Fontes dos Padrões (Imprints):</strong></p>
-            <ul>
-                <li><strong>Ancestralidade:</strong> Heranças genéticas e conexões familiares.</li>
-                <li><strong>Início da Vida:</strong> Concepção e nascimento. Se o parto foi uma "luta", o sistema pode crer que a vida também deve ser uma luta constante.</li>
-                <li><strong>Infância:</strong> Período em que o ego ainda não filtra o que é baseado no medo ou no amor.</li>
-            </ul>
-
-            <div class="challenge-box" style="background: #f8fafc; border: 1px solid #e2e8f0;">
-                <h3 style="font-size: 1.2rem; margin-top: 0;">O Desafio da Mudança</h3>
-                <p style="font-size: 1rem;">O processo de mudança pode ser demorado por alguns motivos cruciais:</p>
-                <ul style="font-size: 1rem;">
-                    <li><strong>Velocidade Diferenciada:</strong> A mente racional compreende a necessidade de mudar muito mais rápido do que o comportamento inconsciente consegue acompanhar.</li>
-                    <li><strong>Profundidade das Decisões:</strong> Decisões estabelecidas na infância criam raízes difíceis de acessar apenas com o intelecto.</li>
-                    <li><strong>Necessidade de Ferramentas:</strong> É preciso técnicas de cura emocional para chegar onde a lógica comum não alcança.</li>
-                </ul>
-            </div>
-
-            <p style="margin-top: 20px;"><strong>Conclusão:</strong> Compreender a meta do crescimento pessoal é simples, mas atingi-la exige paciência para reprogramar hábitos gravados no sistema muito antes de termos consciência deles.</p>
-
-            <div class="bible-quote">“E vos renoveis no espírito da vossa mente.” — Efésios 4:23</div>
-            
+            <h2>7. A NATUREZA DOS PADRÕES E HERANÇAS</h2>
+            <p>Muitos dos seus comportamentos atuais são "cópias" de padrões que você observou na infância. A <strong>Epigenética</strong> sugere que até inclinações emocionais podem ser herdadas. No entanto, o seu DNA não é o seu destino.</p>
+            <p>Identificar um padrão (como a necessidade de aprovação ou o medo do abandono) é o primeiro passo para quebrá-lo. Ao nomear o padrão, você retira o poder que ele tem de operar no seu inconsciente.</p>
+            <div class="bible-quote">“E vos renoveis no espírito da vossa mente, e vos revistais do novo homem.” — Efésios 4:23-24</div>
             <button class="btn btn-next" style="width:100%" onclick="goTo('p-ch6')">Próximo Capítulo</button>
         </div>
 
         <div id="p-ch6" class="page">
-            <h2>8. PLANO PRÁTICO DE APLICAÇÃO</h2>
+            <h2>8. PLANO PRÁTICO: A METODOLOGIA R.A.R.</h2>
+            <p>Para aplicar o que você aprendeu, utilize o método de três passos sempre que sentir uma emoção intensa:</p>
             <ol>
-                <li>Observe suas emoções</li>
-                <li>Identifique gatilhos</li>
-                <li>Substitua padrões</li>
-                <li>Escreva antes de reagir</li>
-                <li>Regule o corpo antes de tomar decisões</li>
+                <li><strong>Reconhecer:</strong> Nomeie a emoção. "Estou sentindo frustração". Isso tira o peso da amígdala.</li>
+                <li><strong>Analisar:</strong> Qual a necessidade por trás disso? O que eu estou acreditando sobre essa situação?</li>
+                <li><strong>Responder:</strong> Escolha uma ação baseada em quem você quer ser, não em como você está se sentindo agora.</li>
             </ol>
+            <p>A transformação acontece na consistência, não na intensidade. É um tijolo por dia.</p>
             <button class="btn btn-next" style="width:100%" onclick="goTo('p-ch7')">Próximo Capítulo</button>
         </div>
 
         <div id="p-ch7" class="page">
             <h2>9. CONSIDERAÇÕES FINAIS</h2>
-            <p>Emoções não são inimigas. São sinais. Quando ignoradas, nos dominam. Quando compreendidas, nos fortalecem. Amadurecer é aprender a responder, não apenas reagir.</p>
+            <p>Amadurecer emocionalmente é um processo contínuo de autoconhecimento e fé. Você não é escrava de seus padrões passados.</p>
             <button class="btn btn-gold" onclick="goTo('p-ch8')">Sobre a Autora</button>
         </div>
 
         <div id="p-ch8" class="page">
             <h2>10. SOBRE A AUTORA</h2>
             <img src="autora.png" class="img-autora" alt="Joyce Genova">
-            <p><strong>Joyce Genova</strong> é Head Trainer, Master Coach, Rebirther e Heart Coherencer. Especialista em desenvolvimento emocional feminino, dedica-se a ajudar mulheres a curarem traumas e promover equilíbrio entre corpo, alma e espírito.</p>
-            <button class="btn btn-next" style="width:100%; background: var(--gold);" onclick="resumeChallenge()">Ir para a Jornada 21 Dias</button>
+            <p><strong>Joyce Genova</strong> é especialista em desenvolvimento emocional feminino, ajudando mulheres a curarem traumas e promover equilíbrio entre corpo, alma e espírito.</p>
         </div>
 
         <div id="p-final" class="page">
-            <img src="final-selo.png" class="img-selo" alt="Selo de Conclusão">
             <h1 style="color: var(--gold); text-align: center;">JORNADA CONCLUÍDA!</h1>
-            
-            <img src="final-joyce.jpg" class="img-final-joyce" alt="Joyce Genova Sorrindo">
-            
-            <p>Você conseguiu! Durante estes 21 dias, você treinou seu cérebro e fortaleceu suas emoções sob a luz da fé.</p>
-            <p>Lembre-se: a transformação não termina aqui. A inteligência emocional é um exercício diário. Continue guardando seu coração e renovando sua mente.</p>
-            
-            <div class="bible-quote">“Combati o bom combate, acabei a carreira, guardei a fé.” — 2 Timóteo 4:7</div>
-            
-            <button class="btn btn-gold" style="width: 100%;" onclick="window.print()">Salvar/Imprimir meu Diário</button>
+            <p>Parabéns por concluir esses 21 dias de renovação mental!</p>
+            <div class="bible-quote">“Onde não há conselho os projetos fracassam, mas com muitos conselheiros há sucesso.” — Provérbios 15:22</div>
+            <a href="https://wa.me/5519983578989?text=Olá%20Joyce,%20concluí%20a%20jornada%20de%2021%20dias!" target="_blank" class="btn btn-whatsapp">Falar com Joyce (Mentoria)</a>
+            <button class="btn btn-gold" style="width: 100%; margin-top: 10px;" onclick="window.print()">Salvar Diário em PDF</button>
             <button class="btn btn-prev" style="width: 100%; margin-top: 10px;" onclick="goTo('p-index')">Voltar ao Menu</button>
         </div>
 
@@ -235,27 +266,32 @@
 
 <script>
     const SENHA_MESTRA = "EbookCEF";
+    
     const conteudos = [
-        { t: "Neuroplasticidade", c: "Seu cérebro não é fixo. Pensamentos novos criam trilhas físicas.", d: "Escreva uma crença limitante e transforme-a em afirmação lógica." },
-        { t: "O Sequestro da Amígdala", c: "O segredo para vencer o impulso é a pausa.", d: "Descreva uma situação onde a emoção venceu a razão recentemente." },
-        { t: "Dopamina Barata", c: "O vício em notificações drena sua energia.", d: "Fique 2 horas sem celular hoje e registre como se sentiu." },
-        { t: "O Nervo Vago", c: "Respirar é aprender a se acalmar sob pressão.", d: "Pratique a respiração 4-7-8 por 5 minutos." },
-        { t: "Ciclo de Recompensa", c: "Mude o gatilho, mude o hábito.", d: "Identifique o gatilho de um comportamento que deseja mudar." },
-        { t: "Mielinização", c: "A repetição isola os neurônios e facilita a ação.", d: "Qual hábito você vai repetir hoje mesmo sem vontade?" },
-        { t: "Fadiga de Decisão", c: "Decidir cansa. Simplifique sua manhã.", d: "Escolha sua roupa de amanhã hoje à noite." },
-        { t: "Cortisol vs Ocitocina", c: "A conexão humana é o antídoto do estresse.", d: "Tenha uma conversa profunda com alguém hoje." },
-        { t: "Higiene do Sono", c: "Seu cérebro se limpa enquanto você dorme.", d: "Desligue telas 1h antes de dormir hoje." },
-        { t: "Viés de Confirmação", c: "Buscamos o que já acreditamos.", d: "Liste 3 sucessos pequenos de hoje." },
-        { t: "O Córtex Pré-Frontal", c: "Ele é o CEO da sua mente.", d: "Divida uma tarefa difícil em 3 partes minúsculas." },
-        { t: "Luta ou Fuga", c: "Seu corpo reage a boletos como se fossem leões.", d: "Ao sentir medo, pergunte: há risco real de vida?" },
-        { t: "Memória Muscular", c: "O corpo aprende pela prática.", d: "Realize uma tarefa simples com a mão não dominante." },
-        { t: "Neurotransmissores", c: "O que você come afeta como você sente.", d: "Evite processados por 24h e note sua clareza." },
-        { t: "O Poder do Não", c: "Dizer não aos outros é dizer sim para você.", d: "Diga um 'não' necessário hoje." },
+        { 
+            t: "Desconstruindo Crenças", 
+            c: "Uma crença limitante se fortalece pelo 'ciclo da auto-validação'. Você acredita que não consegue -> age com medo -> obtém resultados ruins -> o cérebro reforça que você estava certa.", 
+            d: "Identifique uma frase negativa que você repete (ex: 'Eu não sou boa nisso'). Agora, escreva 3 momentos REAIS da sua vida onde você superou um desafio difícil para provar que essa frase é uma mentira." 
+        },
+        { t: "O Sequestro da Amígdala", c: "O segredo para vencer o impulso é a pausa, se ficou com duvida volte no capitulo 2.", d: "Descreva uma situação onde a emoção venceu a razão recentemente." },
+        { t: "Dopamina Barata", c: "O vício em notificações drena sua energia, se ficou com duvida volte no capitulo 3.", d: "Fique 2 horas sem celular hoje e registre como se sentiu." },
+        { t: "O Nervo Vago", c: "Respirar é aprender a se acalmar sob pressão, se ficou com duvida volte no capitulo 5.", d: "Pratique a respiração 4-7-8 por 5 minutos." },
+        { t: "Ciclo de Recompensa", c: "Mude o gatilho, mude o hábito, se ficou com duvida volte no capitulo 3.", d: "Identifique o gatilho de um comportamento que deseja mudar." },
+        { t: "Mielinização", c: "A repetição isola os neurônios e facilita a ação, se ficou com duvida volte no capitulo 3.", d: "Qual hábito você vai repetir hoje mesmo sem vontade?" },
+        { t: "Fadiga de Decisão", c: "Decidir cansa. Simplifique sua manhã, se ficou com duvida volte no capitulo 4.", d: "Escolha sua roupa de amanhã hoje à noite." },
+        { t: "Cortisol vs Ocitocina", c: "A conexão humana é o antídoto do estresse, se ficou com duvida volte no capitulo 5.", d: "Tenha uma conversa profunda com alguém hoje." },
+        { t: "Higiene do Sono", c: "Seu cérebro se limpa enquanto você dorme, se ficou com duvida volte no capitulo 5.", d: "Desligue telas 1h antes de dormir hoje." },
+        { t: "Viés de Confirmação", c: "Buscamos o que já acreditamos, se ficou com duvida volte no capitulo 6.", d: "Liste 3 sucessos pequenos de hoje." },
+        { t: "O Córtex Pré-Frontal", c: "Ele é o CEO da sua mente, se ficou com duvida volte no capitulo 2.", d: "Divida uma tarefa difícil em 3 partes minúsculas." },
+        { t: "Luta ou Fuga", c: "Seu corpo reage a boletos como se fossem leões, se ficou com duvida volte no capitulo 2.", d: "Ao sentir medo, pergunte: há risco real de vida?" },
+        { t: "Memória Muscular", c: "O corpo aprende pela prática, se ficou com duvida volte no capitulo 7.", d: "Realize uma tarefa simples com a mão não dominante." },
+        { t: "Neurotransmissores", c: "O que você come afeta como você sente, se ficou com duvida volte no capitulo 5.", d: "Evite processados por 24h e note sua clareza." },
+        { t: "O Poder do Não", c: "Dizer não aos outros é dizer sim para você, se ficou com duvida volte no capitulo 8.", d: "Diga um 'não' necessário hoje." },
         { t: "Visualização Ativa", c: "O cérebro simula a realidade.", d: "Visualize seu sucesso por 2 minutos." },
-        { t: "Resiliência Neural", c: "Cair e levantar fortalece as conexões.", d: "Qual o aprendizado de um erro recente?" },
-        { t: "Foco e Atenção", c: "A multitarefa é um mito exaustivo.", d: "Trabalhe 25 min em uma única coisa." },
+        { t: "Resiliência Neural", c: "Cair e levantar fortalece as conexões, se ficou com duvida volte no capitulo 7.", d: "Qual o aprendizado de um erro recente?" },
+        { t: "Foco e Atenção", c: "A multitarefa é um mito exaustivo, se ficou com duvida volte no capitulo 8.", d: "Trabalhe 25 min em uma única coisa." },
         { t: "Linguagem", c: "Suas palavras moldam sua biologia.", d: "Troque 'Tenho que' por 'Eu escolho'." },
-        { t: "Neurônios Espelho", c: "Nós imitamos quem admiramos.", d: "Observe e imite uma postura de confiança hoje." },
+        { t: "Neurônios Espelho", c: "Nós imitamos quem admiramos, se ficou com duvida volte no capitulo 6.", d: "Observe e imite uma postura de confiança hoje." },
         { t: "A Nova Arquitetura", c: "Sua mente não é mais a mesma.", d: "Qual seu próximo compromisso com sua evolução?" }
     ];
 
@@ -266,10 +302,16 @@
         div.id = 'day-' + i; div.className = 'page';
         div.innerHTML = `<h2>Dia ${i}: ${item.t}</h2><p><strong>Conceito:</strong> ${item.c}</p>
             <div class="challenge-box"><p><strong>Desafio:</strong> ${item.d}</p>
-            <textarea id="text-day-${i}" oninput="saveData(${i})" placeholder="Minha reflexão..."></textarea>
+            <textarea id="text-day-${i}" oninput="saveData(${i})" placeholder="Minha reflexão profunda..."></textarea>
             <div id="status-${i}"></div><button class="btn btn-gold" id="btn-day-${i}" onclick="completeDay(${i})">Concluir Dia ${i}</button></div>`;
         container.appendChild(div);
     });
+
+    function updateProgressBar() {
+        let current = parseInt(localStorage.getItem('joyce_unlocked_day')) || 1;
+        let percent = ((current - 1) / conteudos.length) * 100;
+        document.getElementById('fill').style.width = Math.min(percent, 100) + '%';
+    }
 
     function goTo(id) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -280,12 +322,7 @@
         document.getElementById('nav-controls').style.display = (isChallenge || id.startsWith('p-ch') || id === 'p-final') ? 'flex' : 'none';
         if(isChallenge) {
             let n = id.split('-')[1]; document.getElementById('pCount').innerText = `Dia ${n} / 21`; checkLockState(n);
-        } else if(id === 'p-final') { document.getElementById('pCount').innerText = "Concluído"; }
-    }
-
-    function resumeChallenge() {
-        let current = parseInt(localStorage.getItem('joyce_unlocked_day')) || 1;
-        if(current > 21) goTo('p-final'); else goTo('day-' + current);
+        }
     }
 
     function checkLogin() {
@@ -294,6 +331,7 @@
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('workbook').style.visibility = 'visible';
             renderIndex();
+            updateProgressBar();
         } else alert("Senha incorreta!");
     }
 
@@ -301,24 +339,32 @@
         const list = document.getElementById('challenge-list'); if(!list) return;
         list.innerHTML = '<h3 style="color:var(--gold)">Jornada 21 Dias</h3>';
         let lastDate = localStorage.getItem('joyce_date'), unlockedDay = parseInt(localStorage.getItem('joyce_unlocked_day')) || 1, today = new Date().toDateString();
+        
         conteudos.forEach((item, index) => {
             let d = index + 1, div = document.createElement('div');
             if(d < unlockedDay) { div.className = 'index-item'; div.innerHTML = `✅ Dia ${d}: ${item.t}`; div.onclick = () => goTo('day-'+d); }
             else if(d === unlockedDay) {
-                if(lastDate === today) { div.className = 'index-item locked-item'; div.innerHTML = `⏳ Dia ${d}: (Amanhã)`; div.onclick = () => alert("Volte amanhã!"); }
+                if(lastDate === today) { div.className = 'index-item locked-item'; div.innerHTML = `⏳ Dia ${d}: (Próximo passo amanhã)`; div.onclick = () => alert("Mudar o cérebro exige pausa. Volte amanhã!"); }
                 else { div.className = 'index-item'; div.innerHTML = `🎯 Dia ${d}: ${item.t}`; div.onclick = () => goTo('day-'+d); }
             } else { div.className = 'index-item locked-item'; div.innerHTML = `🔒 Dia ${d}: Bloqueado`; }
             list.appendChild(div);
         });
+
+        if(unlockedDay > conteudos.length) {
+            let finish = document.createElement('div');
+            finish.className = 'index-item'; finish.style.color = 'var(--gold)'; finish.innerHTML = "🏆 VER MENSAGEM FINAL";
+            finish.onclick = () => goTo('p-final'); list.appendChild(finish);
+        }
     }
 
     function completeDay(d) {
-        if(document.getElementById('text-day-'+d).value.length < 5) return alert("Escreva sua reflexão!");
+        if(document.getElementById('text-day-'+d).value.length < 5) return alert("Por favor, registre sua reflexão.");
         localStorage.setItem('joyce_date', new Date().toDateString());
         let current = parseInt(localStorage.getItem('joyce_unlocked_day')) || 1;
         if(d === current) localStorage.setItem('joyce_unlocked_day', current + 1);
+        updateProgressBar();
         renderIndex();
-        if(d === 21) goTo('p-final'); else goTo('p-index');
+        if(d === conteudos.length) goTo('p-final'); else goTo('p-index');
     }
 
     function checkLockState(d) {
@@ -329,13 +375,14 @@
     }
 
     function saveData(d) { localStorage.setItem('joyce_txt_'+d, document.getElementById('text-day-'+d).value); }
-    function resetProgress() { if(confirm("Reiniciar tudo?")) { localStorage.clear(); location.reload(); } }
+    function resetProgress() { if(confirm("Deseja reiniciar sua jornada? Isso apagará suas respostas.")) { localStorage.clear(); location.reload(); } }
 
     window.onload = () => {
         if(localStorage.getItem('joyce_auth') === 'true') {
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('workbook').style.visibility = 'visible';
             renderIndex();
+            updateProgressBar();
         }
         for(let i=1; i<=21; i++) {
             let s = localStorage.getItem('joyce_txt_'+i);
